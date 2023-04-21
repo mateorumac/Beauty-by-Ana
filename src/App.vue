@@ -188,7 +188,6 @@ footer {
 </style>
 
 <script>
-import firebase from '@/firebase';
 export default {
   data() {
     return {
@@ -197,20 +196,8 @@ export default {
     };
   },
 
-  mounted() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.isUserLoggedIn = true;
-      } else {
-        this.isUserLoggedIn = false;
-      }
-    });
-  },
 
   methods: {
-    logout() {
-      firebase.auth().signOut();
-    },
     toggleNav() {
       this.navOpen = !this.navOpen;
     }
