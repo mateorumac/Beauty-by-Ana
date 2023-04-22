@@ -8,9 +8,10 @@
     <ul class="nav-links">
       <li><router-link to="/">POČETNA</router-link></li>
       <li><router-link to="/onama">O NAMA</router-link></li>
+      <li><router-link to="/korisnici">KORISNICI</router-link></li>
       <li><router-link to="/cjenik">CJENIK</router-link></li>
       <li><router-link to="/kontakt">KONTAKT</router-link></li>
-      <li v-if="!isUserLoggedIn"><router-link to="/login">PRIJAVA</router-link></li>
+      <li v-if="!isUserLoggedIn"><router-link to="/signup">REGISTRIRAJ SE</router-link></li>
       <li v-if="isUserLoggedIn">
       <button class="logout" @click="logout"><i class="fa fa-sign-out"></i>&nbsp;IZLAZ</button>  
       </li>
@@ -24,16 +25,17 @@
         <ul v-if="navOpen">
           <li @click="toggleNav"><router-link to="/">POČETNA</router-link></li>
           <li @click="toggleNav"><router-link to="/onama">O NAMA</router-link></li>
+          <li @click="toggleNav"><router-link to="/korisnici">KORISNICI</router-link></li>
           <li @click="toggleNav"><router-link to="/cjenik">CJENIK</router-link></li>
           <li @click="toggleNav"><router-link to="/kontakt">KONTAKT</router-link></li>
-          <li v-if="!isUserLoggedIn" @click="toggleNav"><router-link to="/login">PRIJAVA</router-link></li>
+          <li v-if="!isUserLoggedIn" @click="toggleNav"><router-link to="/signup">REGISTRIRAJ SE</router-link></li>
           <li v-if="isUserLoggedIn">
             <button class="logout" @click="logout"><i class="fa fa-sign-out"></i>IZLAZ</button>  
           </li>
         </ul>
   </nav>
   <router-view/>
-  <footer v-if="$route.path !== '/login'">
+  <footer v-if="$route.path !== '/login' && $route.path !== '/signup'">
     <p style="font-size:18px"> Copyright © Beauty by Ana 2023 </p>
     <div style="display: flex; align-items: center;">
     <p style="font-size:18px; margin-right: 20px;"> Za novosti i informacije zapratite nas putem društvenih mreža </p>

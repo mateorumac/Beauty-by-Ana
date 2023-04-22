@@ -212,4 +212,13 @@ img:hover {
 }
 </style>
 
+<script>
+export default {
+  methods: {
+    redirectToPage() {
+      window.location.href = '/termini';
+    }
+  }
+};
+</script>
     

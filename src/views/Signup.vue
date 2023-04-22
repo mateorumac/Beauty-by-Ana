@@ -1,16 +1,30 @@
 <template>
-  <div class="container52">
-    <h2 class="title1">Prijava</h2>
+  <div class="container5">
+    <h2 class="title">Registracija</h2>
     <form @submit.prevent="handleLogin">
-      <div class="form-group1">
-        <label class="prijava" for="email">E-mail</label>
+        <div class="form-group">
+        <label for="name">Ime</label>
+        <input type="text" v-model="name" required />
+      </div>
+      <div class="form-group">
+        <label for="lname">Prezime</label>
+        <input type="text" v-model="lname" required />
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail</label>
         <input type="email" v-model="email" required />
       </div>
-      <div class="form-group1">
-        <label class="prijava" for="password">Lozinka</label>
+      <div class="form-group">
+        <label for="password">Lozinka</label>
         <input type="password" v-model="password" required/>
       </div>
-      <button type="button" @click="handleLogin">Prijavi se</button>
+      <div class="form-group">
+        <label for="password">Ponovljena lozinka</label>
+        <input type="password" v-model="password2" required/>
+      </div>
+      <button type="button" @click="handleLogin">Registriraj se</button>
+      <br><br>
+      <p class="registracija">Imaš već račun? &nbsp;<router-link to="/login">Prijavi se</router-link></p>
     </form>
   </div>
 </template>
@@ -18,7 +32,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
-.container52 {
+.container5 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,35 +42,40 @@
   max-width: 800px;
   padding-bottom: 80px;
   margin: 40px auto;
-  margin-bottom: 4.3%;
-  margin-top: 4.3%;
+  margin-bottom: 1%;
+  margin-top: 1%;
 }
 
-.title1 {
-  margin-bottom: 45px;
-  font-size: 38px;
+.registracija {
+    font-size: 18px;
+    margin-bottom: -10%;
+    margin-top: -2%;
+}
+.title {
+  margin-bottom: 30px;
+  font-size: 30px;
   font-weight: bold;
   color: #000000;
   font-family: 'Open Sans', sans-serif;
 }
 
-.form-group1 {
+.form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 
-.prijava {
+label {
   font-family: 'Open Sans', sans-serif;
-  font-size: 23px;
+  font-size: 20px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 input {
   font-family: 'Open Sans', sans-serif;
   padding: 15px;
-  font-size: 16px;
+  font-size: 18px;
   border-radius: 5px;
   border: 1px solid #ddd;
 }
@@ -70,7 +89,7 @@ button[type="button"] {
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 button[type="button"]:hover {
@@ -101,11 +120,14 @@ button[type="button"]:hover {
 <script>
 
 export default {
-  name: "Login",
+  name: "Signup",
   data() {
     return {
+        name: "",
+        lname: "",
         email: "",
-        password: "",    
+        password: "", 
+        password2: "",   
     };
   },
   methods: {
