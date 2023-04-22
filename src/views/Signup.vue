@@ -3,24 +3,20 @@
     <h2 class="title">Registracija</h2>
     <form @submit.prevent="handleLogin">
         <div class="form-group">
-        <label for="name">Ime</label>
-        <input type="text" v-model="name" required />
+        <label class="reg" for="name">Ime</label>
+        <input class="reg2" type="text" v-model="name" required />
       </div>
       <div class="form-group">
-        <label for="lname">Prezime</label>
-        <input type="text" v-model="lname" required />
+        <label class="reg" for="lname">Prezime</label>
+        <input class="reg2" type="text" v-model="lname" required />
       </div>
       <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" v-model="email" required />
+        <label class="reg" for="email">E-mail</label>
+        <input class="reg2" type="email" v-model="email" required />
       </div>
       <div class="form-group">
-        <label for="password">Lozinka</label>
-        <input type="password" v-model="password" required/>
-      </div>
-      <div class="form-group">
-        <label for="password">Ponovljena lozinka</label>
-        <input type="password" v-model="password2" required/>
+        <label class="reg" for="password">Lozinka</label>
+        <input class="reg2" type="password" v-model="password" required/>
       </div>
       <button type="button" @click="handleLogin">Registriraj se</button>
       <br><br>
@@ -42,8 +38,8 @@
   max-width: 800px;
   padding-bottom: 80px;
   margin: 40px auto;
-  margin-bottom: 1%;
-  margin-top: 1%;
+  margin-bottom: 2.3%;
+  margin-top: 2.3%;
 }
 
 .registracija {
@@ -65,14 +61,14 @@
   margin-bottom: 20px;
 }
 
-label {
+.reg {
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-input {
+.reg2 {
   font-family: 'Open Sans', sans-serif;
   padding: 15px;
   font-size: 18px;
@@ -83,7 +79,7 @@ input {
 button[type="button"] {
   font-family: 'Open Sans', sans-serif;
   background-color: #FFB6C1;
-  color: white;
+  color: black;
   padding: 15px 23px;
   font-size: 20px;
   border-radius: 5px;
@@ -126,8 +122,7 @@ export default {
         name: "",
         lname: "",
         email: "",
-        password: "", 
-        password2: "",   
+        password: "",    
     };
   },
   methods: {

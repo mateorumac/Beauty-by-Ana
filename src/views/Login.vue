@@ -64,7 +64,7 @@ input {
 button[type="button"] {
   font-family: 'Open Sans', sans-serif;
   background-color: #FFB6C1;
-  color: white;
+  color: black;
   padding: 15px 23px;
   font-size: 20px;
   border-radius: 5px;
