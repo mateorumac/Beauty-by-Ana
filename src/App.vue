@@ -10,6 +10,7 @@
       <li><router-link to="/onama">O NAMA</router-link></li>
       <li><router-link to="/korisnici">KORISNICI</router-link></li>
       <li><router-link to="/cjenik">CJENIK</router-link></li>
+      <li><router-link to="/termini">REZERVACIJA</router-link></li>
       <li><router-link to="/kontakt">KONTAKT</router-link></li>
       <li v-if="!isUserLoggedIn"><router-link to="/signup">REGISTRIRAJ SE</router-link></li>
       <li v-if="isUserLoggedIn">
@@ -27,6 +28,7 @@
           <li @click="toggleNav"><router-link to="/onama">O NAMA</router-link></li>
           <li @click="toggleNav"><router-link to="/korisnici">KORISNICI</router-link></li>
           <li @click="toggleNav"><router-link to="/cjenik">CJENIK</router-link></li>
+          <li @click="toggleNav"><router-link to="/termini">REZERVACIJA</router-link></li>
           <li @click="toggleNav"><router-link to="/kontakt">KONTAKT</router-link></li>
           <li v-if="!isUserLoggedIn" @click="toggleNav"><router-link to="/signup">REGISTRIRAJ SE</router-link></li>
           <li v-if="isUserLoggedIn">

@@ -50,6 +50,7 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 .form-group3 {
   margin-bottom: 1rem;
 }
@@ -63,6 +64,7 @@ input[type="text"],
 textarea {
   width: 65%;
   padding: 2%;
+  font-family: 'Open Sans', sans-serif;
 }
 
 button[type="button"] {

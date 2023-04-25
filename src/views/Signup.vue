@@ -1,6 +1,6 @@
 <template>
   <div class="container5">
-    <h2 class="title">Registracija</h2>
+    <h2 class="title2">Registracija</h2>
     <form @submit.prevent="handleLogin">
         <div class="form-group">
         <label class="reg" for="name">Ime</label>
@@ -47,9 +47,9 @@
     margin-bottom: -10%;
     margin-top: -2%;
 }
-.title {
+.title2 {
   margin-bottom: 30px;
-  font-size: 30px;
+  font-size: 38px;
   font-weight: bold;
   color: #000000;
   font-family: 'Open Sans', sans-serif;
