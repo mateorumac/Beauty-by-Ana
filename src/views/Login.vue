@@ -10,7 +10,7 @@
         <label class="prijava" for="password">Lozinka</label>
         <input type="password" v-model="password" required/>
       </div>
-      <button type="button" @click="handleLogin">Prijavi se</button>
+      <button type="button" @click="login()">Prijavi se</button>
     </form>
   </div>
 </template>
@@ -109,6 +109,31 @@ export default {
     };
   },
   methods: {
-  }
+    async login() {
+      try {
+        const response = await fetch("http://localhost:3000/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": 'application/json; charset=utf-8' },
+          credentials: 'include',
+          body: JSON.stringify({
+            email: this.email,
+            password: this.password,
+
+          }),
+        });
+        const data = await response.json();
+        if (response.ok) {
+          document.cookie = `token=${data.token}; max-age=${7 * 24 * 60 * 60}; secure; path=/`;
+          this.$router.push("/");
+          console.log("Uspješna prijava");
+        } else {
+          console.log("error");
+        }
+      } catch (error) {
+
+        this.$message.error(error.message || "Invalid email or password");
+      }
+    },
+  },
 };
 </script>

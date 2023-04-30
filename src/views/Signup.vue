@@ -18,7 +18,7 @@
         <label class="reg" for="password">Lozinka</label>
         <input class="reg2" type="password" v-model="password" required/>
       </div>
-      <button type="button" @click="handleLogin">Registriraj se</button>
+      <button type="button" @click="dodajUsera()">Registriraj se</button>
       <br><br>
       <p class="registracija">Imaš već račun? &nbsp;<router-link to="/login">Prijavi se</router-link></p>
     </form>
@@ -126,6 +126,29 @@ export default {
     };
   },
   methods: {
-  }
+
+        async dodajUsera() {
+
+            let json = { "name": this.name, "lname": this.lname, "email": this.email, "password": this.password }
+
+            await fetch(' http://localhost:3000/api/auth/register', {
+                method: 'POST',
+                body: JSON.stringify(json),
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                },
+            }).then(res => res.json()).then(data => {
+                this.$router.push('/login')
+                console.log(data)
+            }).catch((err) => {
+                if (err) {
+                    console.log(err);
+
+                }
+            });
+
+
+        }
+    }
 };
 </script>
