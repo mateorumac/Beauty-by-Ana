@@ -1,6 +1,6 @@
 <template>
   <div class="container3">
-    <div class="buttons-container" v-if="isUserLoggedIn">
+    <div class="buttons-container" v-if="!isUserLoggedIn">
       <button class="discount" @click="discount1">Primjeni 10% popusta na sve </button>
       <button class="remove" @click="removeDiscount">Ukloni popust</button>              
       <button class="discount" @click="discount2" style="margin-left:6%;">Primjeni 20% popusta na sve</button>           
@@ -12,7 +12,7 @@
         <span class="item-price">{{ item.price }}</span>
       </li>     
     </ul>
-    <div class="new-item" v-if="isUserLoggedIn">
+    <div class="new-item" v-if="!isUserLoggedIn">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
@@ -29,7 +29,7 @@
         <span class="item-price">{{ item.price }}</span>
       </li>      
     </ul>
-    <div class="new-item" v-if="isUserLoggedIn">
+    <div class="new-item" v-if="!isUserLoggedIn">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
@@ -46,7 +46,7 @@
         <span class="item-price">{{ item.price }}</span>
       </li>     
     </ul>
-    <div class="new-item" v-if="isUserLoggedIn">
+    <div class="new-item" v-if="!isUserLoggedIn">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
@@ -63,7 +63,7 @@
         <span class="item-price">{{ item.price }}</span>
       </li>     
     </ul>
-    <div class="new-item" v-if="isUserLoggedIn">
+    <div class="new-item" v-if="!isUserLoggedIn">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
@@ -80,7 +80,7 @@
         <span class="item-price">{{ item.price }}</span>
       </li>      
     </ul>
-    <div class="new-item" v-if="isUserLoggedIn">
+    <div class="new-item" v-if="!isUserLoggedIn">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
@@ -97,7 +97,7 @@
         <span class="item-price">{{ item.price }}</span>
       </li>     
     </ul>
-    <div class="new-item" v-if="isUserLoggedIn">
+    <div class="new-item" v-if="!isUserLoggedIn">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>

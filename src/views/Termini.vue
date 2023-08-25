@@ -1,21 +1,15 @@
 <template>
-  <div class="booking">
+  <div v-if="isAuthenticated()" class="booking">
     <h2 class="reztekst">Rezerviraj termin</h2>
-    <form class="rezervacija" @submit.prevent="submitForm">
+    <div class="booking">
+    <form  class="rezervacija" @submit.prevent="submitForm">
         <div class="booking">
-        <label for="category">Kategorija:</label>
+        <label for="category">Vrsta usluge:</label>
         <select id="category" v-model="selectedCategory" required>
           <option disabled value="">Molimo odaberite jednu</option>
           <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
         </div>
-      <div class="booking">
-        <label for="service">Usluga:</label>
-        <select id="service" v-model="selectedService" required>
-          <option disabled value="">Molimo odaberite jednu</option>
-          <option v-for="service in services" :key="service.id" :value="service.id">{{ service.name }}</option>
-        </select>
-      </div>
       <div class="booking">
         <label for="time">Vrijeme:</label>
         <input type="datetime-local" id="time" v-model="selectedTime" required>
@@ -29,16 +23,50 @@
         <input type="text" id="comments" v-model="clientComments" placeholder="Dodatni komentari...">
       </div>
       <div class="booking">
-        <button class="rsvbtn" type="submit">Rezerviraj</button>
+        <button class="rsvbtn" type="submit" @click="submitForm">Rezerviraj</button>
       </div>
     </form>
-  </div>
+      </div></div>
+    <div v-else>
+            <p>Molimo ulogirajte se kako bi rezervirali termin!</p>
+        </div>
+  <h2 class="reztekst">Zakazani termini</h2>
+    <li class="reservation-item">
+      <div class="reservation-container">
+    <div class="booking">
+      <h2>Vrsta usluge</h2>
+      <p>Ime i prezime: </p>
+      <p>Datum: </p>
+      <p>Vrijeme:</p>
+      <p>Broj telefona:</p>
+    </div>
+    </div>
+  </li>
 </template>
 
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+.reservation-item {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  margin: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.reservation-container {
+  
+  padding: 20px; 
+  background-color: #f5f5f5;
+  display: flex; 
+  align-items: center;
+  border-radius: 10px;
+  font-family: 'Open Sans', sans-serif;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
 
 .reztekst {
   margin-bottom: 20px;
@@ -143,11 +171,12 @@ textarea:focus {
 }
 </style>
 <script>
+import  {isAuthenticated}  from '../router/helpers';
 export default {
+  
   data() {
     return {
       selectedCategory: '',  
-      selectedService: '',
       selectedTime: '',
       clientPhone: '',
       clientComments: '',
@@ -158,16 +187,38 @@ export default {
         { id: 4, name: 'Depilacija' },
         { id: 5, name: 'Masaža' },
         { id: 6, name: 'Deluxe shape' }
-      ],
-      services: [
-        { id: 1, name: 'Njega lica' },
-        { id: 1, name: 'Nokti' },
-        { id: 3, name: 'Stopala' },
-        { id: 4, name: 'Depilacija' },
-        { id: 5, name: 'Masaža' },
-        { id: 6, name: 'Deluxe shape' }
       ]
     };
+  },
+  methods: {
+    isAuthenticated,
+    async submitForm() {
+      const formData = {
+        selectedCategory: this.selectedCategory,
+        selectedTime: this.selectedTime,
+        clientPhone: this.clientPhone,
+        clientComments: this.clientComments
+
+      };
+      try {
+        // Send the form data to your backend API using fetch
+        const response = await fetch('/api/reserved', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const responseData = await response.json();
+
+        // Handle success response
+        console.log('Form submitted successfully', responseData);
+      } catch (error) {
+        // Handle error response
+        console.error('Error submitting form', error);
+      }
+    }
   }
-  }
+};
 </script>

@@ -12,8 +12,8 @@
       <li><router-link to="/cjenik">CJENIK</router-link></li>
       <li><router-link to="/termini">REZERVACIJA</router-link></li>
       <li><router-link to="/kontakt">KONTAKT</router-link></li>
-      <li v-if="!isUserLoggedIn"><router-link to="/signup">REGISTRIRAJ SE</router-link></li>
-      <li v-if="isUserLoggedIn">
+      <li v-if="!isAuthenticated()"><router-link to="/signup">REGISTRIRAJ SE</router-link></li>
+      <li v-if="isAuthenticated()">
       <button class="logout" @click="logout"><i class="fa fa-sign-out"></i>&nbsp;IZLAZ</button>  
       </li>
     </ul>
@@ -30,8 +30,8 @@
           <li @click="toggleNav"><router-link to="/cjenik">CJENIK</router-link></li>
           <li @click="toggleNav"><router-link to="/termini">REZERVACIJA</router-link></li>
           <li @click="toggleNav"><router-link to="/kontakt">KONTAKT</router-link></li>
-          <li v-if="!isUserLoggedIn" @click="toggleNav"><router-link to="/signup">REGISTRIRAJ SE</router-link></li>
-          <li v-if="isUserLoggedIn">
+          <li v-if="!isAuthenticated()" @click="toggleNav"><router-link to="/signup">REGISTRIRAJ SE</router-link></li>
+          <li v-if="isAuthenticated()">
             <button class="logout" @click="logout"><i class="fa fa-sign-out"></i>IZLAZ</button>  
           </li>
         </ul>
@@ -192,11 +192,12 @@ footer {
 </style>
 
 <script>
+import  {isAuthenticated}  from './router/helpers';
 export default {
   data() {
     return {
-      isUserLoggedIn: false,
       navOpen: false
+       
     };
   },
 
@@ -204,6 +205,28 @@ export default {
   methods: {
     toggleNav() {
       this.navOpen = !this.navOpen;
+    },
+    isAuthenticated,
+  
+
+      
+      async logout() {
+      try {
+        const response = await fetch('http://localhost:3000/api/auth/logout', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({})
+        });
+  
+        const data = await response.json();
+        console.log(data.message);
+        
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 };

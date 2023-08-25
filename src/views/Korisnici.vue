@@ -20,7 +20,7 @@
             nakon nisam se mogla pomaknuti hahah, ali kad je bol prošla <br> osjećala sam se bolje nego ikada! <br><br><br>
             Slađana B. 5&starf; <br> Puno hvala Ana na noktićima, jako mi se sviđaju. Muž kaže da nisam nikad imala tako dobre :)  </i></p>
             </div>
-            <div class="reviews">
+            <div v-if="isAuthenticated()" class="reviews">
             <h2>Ostavi svoj dojam!</h2>
             <form @submit.prevent="submitReview">
             <div class="form-group3">
@@ -29,21 +29,24 @@
             </div>
             <div class="form-group3">
             <div class="star-rating">
-	        <input type="radio" id="5-stars" name="rating" value="5" />
+	        <input type="radio" id="5-stars" name="rating" value="5" v-model="rating" />
 	        <label for="5-stars" class="star">&bigstar;</label>
-	        <input type="radio" id="4-stars" name="rating" value="4" />
+	        <input type="radio" id="4-stars" name="rating" value="4"  v-model="rating" />
 	        <label for="4-stars" class="star">&bigstar;</label>
-	        <input type="radio" id="3-stars" name="rating" value="3" />
+	        <input type="radio" id="3-stars" name="rating" value="3" v-model="rating" />
 	        <label for="3-stars" class="star">&bigstar;</label>
-	        <input type="radio" id="2-stars" name="rating" value="2" />
+	        <input type="radio" id="2-stars" name="rating" value="2" v-model="rating" />
 	        <label for="2-stars" class="star">&bigstar;</label> 
-	        <input type="radio" id="1-star" name="rating" value="1" />
+	        <input type="radio" id="1-star" name="rating" value="1" v-model="rating" />
 	        <label for="1-star" class="star">&bigstar;</label>
             </div>
             </div>
-            <button type="button">Pošalji</button>
+            <button type="button" @click="submitReview()">Pošalji</button>
             </form>
             </div>
+            <div v-else>
+            <p>Ulogirajte se kako bi ostavili svoj dojam!</p>
+        </div>
           </div>
         </div>
       </div>     
@@ -113,13 +116,44 @@ button[type="button"]:hover {
 </style>
 
 <script>
-
+import  {isAuthenticated}  from '../router/helpers';
 export default {
   name: 'ReviewForm',
   data() {
     return {
-      rating: 1,
+      rating: null,
       review: ''
+    };
+  },
+  methods: {
+    isAuthenticated,
+    async submitReview() {
+      try {
+        const response = await fetch("http://localhost:3000/api/review/postrev", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+            
+          },
+          body: JSON.stringify({
+            review: this.review,
+            rating: this.rating
+          })
+        });
+
+        if (response.ok) {
+          
+          const responseData = await response.json();
+          console.log(responseData); 
+
+        } else {
+          
+          console.error('Failed to submit the review.');
+        }
+      } catch (error) {
+        console.error('Error submitting the review:', error);
+      }
     }
-  }}
+  }
+};
 </script>
