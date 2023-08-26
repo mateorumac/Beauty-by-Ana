@@ -124,6 +124,9 @@ export default {
         const data = await response.json();
         if (response.ok) {
           document.cookie = `token=${data.token}; max-age=${7 * 24 * 60 * 60}; secure; path=/`;
+          localStorage.setItem('jwtToken', data.token);
+          localStorage.setItem('userEmail', data.userEmail);
+          
           this.$router.push("/");
           console.log("Uspješna prijava");
         } else {

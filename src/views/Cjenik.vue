@@ -1,6 +1,6 @@
 <template>
-  <div class="container3">
-    <div class="buttons-container" v-if="!isUserLoggedIn">
+  <div class="container3"> 
+    <div class="buttons-container" v-if="role === 'admin'">
       <button class="discount" @click="discount1">Primjeni 10% popusta na sve </button>
       <button class="remove" @click="removeDiscount">Ukloni popust</button>              
       <button class="discount" @click="discount2" style="margin-left:6%;">Primjeni 20% popusta na sve</button>           
@@ -12,7 +12,8 @@
         <span class="item-price">{{ item.price }}</span>
       </li>     
     </ul>
-    <div class="new-item" v-if="!isUserLoggedIn">
+    
+    <div class="new-item" v-if="role === 'admin'">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
@@ -29,13 +30,15 @@
         <span class="item-price">{{ item.price }}</span>
       </li>      
     </ul>
-    <div class="new-item" v-if="!isUserLoggedIn">
+    
+    <div class="new-item" v-if="role === 'admin'">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
       <input id="item-price" v-model="newItemPrice" type="text" />
       <button @click="addItem('items2', newItemName, newItemPrice)">Dodaj</button>
     </div>
+    
   </div>
 
   <div class="container3">
@@ -46,13 +49,15 @@
         <span class="item-price">{{ item.price }}</span>
       </li>     
     </ul>
-    <div class="new-item" v-if="!isUserLoggedIn">
+    
+    <div class="new-item" v-if="role === 'admin'">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
       <input id="item-price" v-model="newItemPrice" type="text" />
       <button @click="addItem('items3', newItemName, newItemPrice)">Dodaj</button>
     </div>
+   
   </div>
 
   <div class="container3">
@@ -63,13 +68,15 @@
         <span class="item-price">{{ item.price }}</span>
       </li>     
     </ul>
-    <div class="new-item" v-if="!isUserLoggedIn">
+   
+    <div class="new-item" v-if="role === 'admin'">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
       <input id="item-price" v-model="newItemPrice" type="text" />
       <button @click="addItem('items4', newItemName, newItemPrice)">Dodaj</button>
     </div>
+
   </div>
 
   <div class="container3">
@@ -80,13 +87,15 @@
         <span class="item-price">{{ item.price }}</span>
       </li>      
     </ul>
-    <div class="new-item" v-if="!isUserLoggedIn">
+   
+    <div class="new-item" v-if="role === 'admin'">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
       <input id="item-price" v-model="newItemPrice" type="text" />
       <button @click="addItem('items5', newItemName, newItemPrice)">Dodaj</button>
     </div>
+
   </div>
 
   <div class="container31">
@@ -97,13 +106,15 @@
         <span class="item-price">{{ item.price }}</span>
       </li>     
     </ul>
-    <div class="new-item" v-if="!isUserLoggedIn">
+  
+    <div class="new-item" v-if="role === 'admin'">
       <label for="item-name">Stavka:</label>
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
       <input id="item-price" v-model="newItemPrice" type="text" />
       <button @click="addItem('items6', newItemName, newItemPrice)">Dodaj</button>
     </div>
+
   </div>
 </template>
     
@@ -270,12 +281,13 @@ span {
 </style>
 
 <script>
+import  {getUserRole}  from '../router/helpers';
 
 export default {
   data() {
     return {
-      isUserLoggedIn: false,
       appliedDiscount: false,
+      role: getUserRole(),
       items: [
         { name: 'Njega lica', price: '27€', originalPrice: 27 },
         { name: 'Anti-age njega lica', price: '34€', originalPrice:34},
@@ -332,6 +344,7 @@ export default {
         
         newItemName: '',
         newItemPrice: ''
+        
 };
 },
 methods: {

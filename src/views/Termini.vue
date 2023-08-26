@@ -19,29 +19,35 @@
         <input type="tel" id="phone" v-model="clientPhone" required>
       </div>
       <div class="booking">
-        <label for="comments">Dodatni komentari:</label>
-        <input type="text" id="comments" v-model="clientComments" placeholder="Dodatni komentari...">
-      </div>
-      <div class="booking">
-        <button class="rsvbtn" type="submit" @click="submitForm">Rezerviraj</button>
+        <button class="rsvbtn" type="submit">Rezerviraj</button>
       </div>
     </form>
       </div></div>
+      
     <div v-else>
             <p>Molimo ulogirajte se kako bi rezervirali termin!</p>
         </div>
-  <h2 class="reztekst">Zakazani termini</h2>
-    <li class="reservation-item">
-      <div class="reservation-container">
-    <div class="booking">
-      <h2>Vrsta usluge</h2>
-      <p>Ime i prezime: </p>
-      <p>Datum: </p>
-      <p>Vrijeme:</p>
-      <p>Broj telefona:</p>
-    </div>
-    </div>
-  </li>
+        <div v-if="showSuccessPopup" class="success-popup">
+        Vaš termin je zabilježen!
+        <button @click="closePopup">Zatvori</button>
+      </div>
+        
+  <div v-if="role === 'admin'">
+    <h2 class="reztekst">Zakazani termini</h2>
+    <ul>
+        <li class="reservation-item">
+            <div class="reservation-container">
+                <div class="booking">
+                    <h2>Vrsta usluge</h2>
+                    <p>Ime i prezime: </p>
+                    <p>Datum: </p>
+                    <p>Vrijeme:</p>
+                    <p>Broj telefona:</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
 </template>
 
 
@@ -75,6 +81,27 @@
   font-size: 70px;
 }
 
+.success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 20px;
+  color: white;
+  z-index: 1000;
+}
+
+.success-popup button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
 
 .rezervacija {
   display: flex;
@@ -172,14 +199,17 @@ textarea:focus {
 </style>
 <script>
 import  {isAuthenticated}  from '../router/helpers';
+import  {getUserRole}  from '../router/helpers';
+
 export default {
   
   data() {
     return {
+      role: getUserRole(),
+      showSuccessPopup: false,
       selectedCategory: '',  
       selectedTime: '',
       clientPhone: '',
-      clientComments: '',
       categories: [
         { id: 1, name: 'Lice + šminkanje' },
         { id: 2, name: 'Nokti' },
@@ -192,33 +222,44 @@ export default {
   },
   methods: {
     isAuthenticated,
+    closePopup() {
+    this.showSuccessPopup = false;
+  },
     async submitForm() {
-      const formData = {
-        selectedCategory: this.selectedCategory,
-        selectedTime: this.selectedTime,
-        clientPhone: this.clientPhone,
-        clientComments: this.clientComments
+  const formData = {
+    selectedCategory: this.selectedCategory,
+    selectedTime: this.selectedTime,
+    clientPhone: this.clientPhone,
+  };
 
-      };
-      try {
-        // Send the form data to your backend API using fetch
-        const response = await fetch('/api/reserved', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        });
+  const jwtToken = localStorage.getItem('jwtToken');
 
-        const responseData = await response.json();
+  try {   
+    const response = await fetch("http://localhost:3000/api/reserved/reserved", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwtToken
+      },
+      body: JSON.stringify(formData)
+    });
 
-        // Handle success response
-        console.log('Form submitted successfully', responseData);
-      } catch (error) {
-        // Handle error response
-        console.error('Error submitting form', error);
-      }
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      const responseData = await response.json();
+      console.log('Form submitted successfully', responseData);
+      this.showSuccessPopup = true;
+      this.selectedCategory = '';
+      this.selectedTime = '';
+      this.clientPhone = '';
+    } else {
+      console.error('Received non-JSON response', await response.text());
     }
+  } catch (error) {
+    // Handle error response
+    console.error('Error submitting form', error);
+  }
+}
   }
 };
 </script>

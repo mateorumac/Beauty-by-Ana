@@ -22,7 +22,7 @@
             </div>
             <div v-if="isAuthenticated()" class="reviews">
             <h2>Ostavi svoj dojam!</h2>
-            <form @submit.prevent="submitReview">
+            <form>
             <div class="form-group3">
             <label for="review">Vaš dojam</label>
             <textarea id="review" v-model="review"></textarea>
@@ -48,6 +48,10 @@
             <p>Ulogirajte se kako bi ostavili svoj dojam!</p>
         </div>
           </div>
+          <div v-if="showSuccessPopup" class="success-popup">
+        Vaš dojam je zabilježen!
+        <button @click="closePopup">Zatvori</button>
+      </div>
         </div>
       </div>     
 </template>
@@ -86,6 +90,28 @@ button[type="button"]:hover {
   background-color: #ff99a8;
 }
 
+.success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 20px;
+  color: white;
+  z-index: 1000;
+}
+
+.success-popup button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
 .star-rating {
 	border: 0;
 	display: flex;
@@ -122,22 +148,30 @@ export default {
   data() {
     return {
       rating: null,
-      review: ''
+      review: '',
+      userEmail: '',
+      showSuccessPopup: false,
     };
+  },
+  mounted(){
+    this.userEmail = localStorage.getItem('userEmail');
   },
   methods: {
     isAuthenticated,
-    async submitReview() {
+    closePopup() {
+    this.showSuccessPopup = false;
+  },
+    async submitReview() {   
       try {
         const response = await fetch("http://localhost:3000/api/review/postrev", {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
-            
+            'Content-Type': 'application/json'           
           },
           body: JSON.stringify({
             review: this.review,
-            rating: this.rating
+            rating: this.rating,
+            userEmail: this.userEmail
           })
         });
 
@@ -145,11 +179,14 @@ export default {
           
           const responseData = await response.json();
           console.log(responseData); 
-
+          this.showSuccessPopup = true;
+          
         } else {
           
-          console.error('Failed to submit the review.');
-        }
+          const errorData = await response.json();
+          console.error('Failed to submit the review:', errorData);
+          }
+        
       } catch (error) {
         console.error('Error submitting the review:', error);
       }
