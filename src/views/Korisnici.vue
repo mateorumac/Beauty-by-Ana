@@ -14,16 +14,19 @@
 
           <div class="column right">
             <div style="width:65%, margin-left:40%">
-            <p class="homepage"><i> Marija L. 5 &starf;<br> Meni je iskustvo bilo fantastično. 
-            Cure su super  i odlično su mi <br> popravile obrve i trepavice. Definitivno se vraćam drugi put! <br><br><br>
-            Marina Z. 5&starf; <br> KAKO. DOBRA. MASAŽA. <br> Nitko me nikad nije ovako dobro izmasirao kao Ana! Dva dana <br> 
-            nakon nisam se mogla pomaknuti hahah, ali kad je bol prošla <br> osjećala sam se bolje nego ikada! <br><br><br>
-            Slađana B. 5&starf; <br> Puno hvala Ana na noktićima, jako mi se sviđaju. Muž kaže da nisam nikad imala tako dobre :)  </i></p>
+            <p class="homepage">
+              <i v-for="rev in reviews" :key="rev._id">
+            {{ rev.reviewerName }} {{ rev.rating }} &starf;<br>
+            {{ rev.review }}<br><br><br>
+              </i>
+            </p>
             </div>
             <div v-if="isAuthenticated()" class="reviews">
             <h2>Ostavi svoj dojam!</h2>
             <form>
             <div class="form-group3">
+            <label for="username">Vaše ime</label>
+            <input type="text" id="username" v-model="username"/>
             <label for="review">Vaš dojam</label>
             <textarea id="review" v-model="review"></textarea>
             </div>
@@ -149,48 +152,69 @@ export default {
     return {
       rating: null,
       review: '',
-      userEmail: '',
+      username: '',
       showSuccessPopup: false,
+      reviews: []
     };
   },
-  mounted(){
-    this.userEmail = localStorage.getItem('userEmail');
+  mounted(){ 
+    this.fetchReviews();
   },
   methods: {
     isAuthenticated,
     closePopup() {
     this.showSuccessPopup = false;
   },
-    async submitReview() {   
-      try {
-        const response = await fetch("http://localhost:3000/api/review/postrev", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'           
-          },
-          body: JSON.stringify({
-            review: this.review,
-            rating: this.rating,
-            userEmail: this.userEmail
-          })
-        });
+    async submitReview() {
+  const reviewData = {
+    review: this.review,
+    rating: this.rating,
+    reviewerName: this.username
+  };
 
-        if (response.ok) {
-          
-          const responseData = await response.json();
-          console.log(responseData); 
-          this.showSuccessPopup = true;
-          
-        } else {
-          
-          const errorData = await response.json();
-          console.error('Failed to submit the review:', errorData);
-          }
-        
-      } catch (error) {
-        console.error('Error submitting the review:', error);
+
+  try {   
+    const response = await fetch("http://localhost:3000/api/review/review", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reviewData)
+    });
+
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      const responseData = await response.json();
+      console.log('Review submitted successfully', responseData);
+      this.showSuccessPopup = true;
+      this.username = '';
+      this.review = '';
+      this.rating = 0;
+      if (responseData.review) {
+        this.reviews.push(responseData.review);
       }
+    } else {
+      console.error('Received non-JSON response', await response.text());
     }
+  } catch (error) {
+    // Handle error response
+    console.error('Error submitting review', error);
+  }
+},
+
+  async fetchReviews() {
+        try {
+            const response = await fetch("http://localhost:3000/api/review/svi");
+            if(response.ok) {
+                this.reviews = await response.json();
+            } else {
+                console.error("Failed to fetch reviews");
+            }
+        } catch (error) {
+            console.error('Error fetching the reviews:', error);
+        }
+    }
+
   }
 };
 </script>

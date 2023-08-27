@@ -156,8 +156,7 @@ footer {
   }
 
   footer .social-media + p {
-      text-align: center;
-      
+      text-align: center;     
     }
 
   footer .social-media {
@@ -173,8 +172,7 @@ footer {
     top: 45px;
     left:50%;
     background-color:#FFB6C1;
-    width: 25%;
-    
+    width: 25%; 
     padding: 5px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -186,7 +184,6 @@ footer {
     text-decoration: none;
     color:#000000;
     font-weight: bold;
-    
   }
 }
 </style>
@@ -196,20 +193,15 @@ import  {isAuthenticated}  from './router/helpers';
 export default {
   data() {
     return {
-      navOpen: false
-       
+      navOpen: false       
     };
   },
-
-
   methods: {
     toggleNav() {
       this.navOpen = !this.navOpen;
     },
     isAuthenticated,
-  
 
-      
       async logout() {
       try {
         const response = await fetch('http://localhost:3000/api/auth/logout', {

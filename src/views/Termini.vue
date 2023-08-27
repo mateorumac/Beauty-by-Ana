@@ -25,7 +25,7 @@
       </div></div>
       
     <div v-else>
-            <p>Molimo ulogirajte se kako bi rezervirali termin!</p>
+            <p class="booking">Molimo ulogirajte se kako bi rezervirali termin!</p>
         </div>
         <div v-if="showSuccessPopup" class="success-popup">
         Vaš termin je zabilježen!
@@ -35,19 +35,20 @@
   <div v-if="role === 'admin'">
     <h2 class="reztekst">Zakazani termini</h2>
     <ul>
-        <li class="reservation-item">
+        <li v-for="reservation in reservations" :key="reservation._id" class="reservation-item">
             <div class="reservation-container">
                 <div class="booking">
-                    <h2>Vrsta usluge</h2>
-                    <p>Ime i prezime: </p>
-                    <p>Datum: </p>
-                    <p>Vrijeme:</p>
-                    <p>Broj telefona:</p>
+                    <h2>{{ getServiceNameById(reservation.serviceType) }}</h2>
+                    <p>Ime i prezime: {{ reservation.comment.split("Reserved by ")[1] }}</p>
+                    <p>Datum: {{ new Date(reservation.reservationDate).toLocaleDateString() }}</p>
+                    <p>Vrijeme: {{ new Date(reservation.reservationDate).toLocaleTimeString() }}</p>
+                    <p>Broj telefona: {{ reservation.phoneNumber }}</p>
                 </div>
             </div>
         </li>
     </ul>
 </div>
+
 </template>
 
 
@@ -217,7 +218,8 @@ export default {
         { id: 4, name: 'Depilacija' },
         { id: 5, name: 'Masaža' },
         { id: 6, name: 'Deluxe shape' }
-      ]
+      ],
+      reservations: []
     };
   },
   methods: {
@@ -252,6 +254,9 @@ export default {
       this.selectedCategory = '';
       this.selectedTime = '';
       this.clientPhone = '';
+      if (responseData.reservation) {
+        this.reservations.push(responseData.reservation);
+      }
     } else {
       console.error('Received non-JSON response', await response.text());
     }
@@ -259,7 +264,39 @@ export default {
     // Handle error response
     console.error('Error submitting form', error);
   }
-}
+},
+
+async fetchReservations() {
+        const jwtToken = localStorage.getItem('jwtToken');
+
+        try {
+            const response = await fetch("http://localhost:3000/api/reserved/getAllReservations", {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + jwtToken
+                }
+            });
+
+            if (response.ok) {
+                this.reservations = await response.json();
+            } else {
+                console.error('Error fetching reservations', await response.text());
+            }
+        } catch (error) {
+            console.error('Error fetching reservations', error);
+        }
+    },
+
+ getServiceNameById(id) {
+        const service = this.categories.find(category => category.id == id);
+        return service ? service.name : '';
+    }
+
+  },
+  mounted(){
+    if (this.role === 'admin') {
+        this.fetchReservations();
+    }
   }
 };
 </script>

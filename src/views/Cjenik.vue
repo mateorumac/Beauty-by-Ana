@@ -5,11 +5,13 @@
       <button class="remove" @click="removeDiscount">Ukloni popust</button>              
       <button class="discount" @click="discount2" style="margin-left:6%;">Primjeni 20% popusta na sve</button>           
     </div>
-    <h1> Lice + Šminkanje </h1>
-    <ul class="pricelist">
-      <li v-for="(item, index) in items" :key="item.name" :class="{ 'item': true, 'no-bottom-border': index === items.length - 1 }">
+    <h1> Cjenik usluga </h1>
+    <ul class="pricelist" style="margin-bottom:10%">
+      <li v-for="(item, index) in items" 
+    :key="item.name" 
+    :class="{ 'item': true, 'no-bottom-border': index === items.length - 1 }">
         <span class="item-name">{{ item.name }}</span>
-        <span class="item-price">{{ item.price }}</span>
+        <span class="item-price">{{ item.displayPrice }}</span>
       </li>     
     </ul>
     
@@ -18,104 +20,10 @@
       <input id="item-name" v-model="newItemName" type="text" />
       <label for="item-price">Cijena:</label>
       <input id="item-price" v-model="newItemPrice" type="text" />
-      <button @click="addItem('items', newItemName, newItemPrice)">Dodaj</button>
+      <button @click="addItem">Dodaj</button>
     </div>        
   </div>
 
-  <div class="container3">
-    <h1> Nokti </h1>
-    <ul class="pricelist">
-      <li v-for="(item, index) in items2" :key="item.name" :class="{ 'item': true, 'no-bottom-border': index === items2.length - 1 }">
-        <span class="item-name">{{ item.name }}</span>
-        <span class="item-price">{{ item.price }}</span>
-      </li>      
-    </ul>
-    
-    <div class="new-item" v-if="role === 'admin'">
-      <label for="item-name">Stavka:</label>
-      <input id="item-name" v-model="newItemName" type="text" />
-      <label for="item-price">Cijena:</label>
-      <input id="item-price" v-model="newItemPrice" type="text" />
-      <button @click="addItem('items2', newItemName, newItemPrice)">Dodaj</button>
-    </div>
-    
-  </div>
-
-  <div class="container3">
-    <h1> Stopala </h1>
-    <ul class="pricelist">
-      <li v-for="(item, index) in items3" :key="item.name" :class="{ 'item': true, 'no-bottom-border': index === items3.length - 1 }">
-        <span class="item-name">{{ item.name }}</span>
-        <span class="item-price">{{ item.price }}</span>
-      </li>     
-    </ul>
-    
-    <div class="new-item" v-if="role === 'admin'">
-      <label for="item-name">Stavka:</label>
-      <input id="item-name" v-model="newItemName" type="text" />
-      <label for="item-price">Cijena:</label>
-      <input id="item-price" v-model="newItemPrice" type="text" />
-      <button @click="addItem('items3', newItemName, newItemPrice)">Dodaj</button>
-    </div>
-   
-  </div>
-
-  <div class="container3">
-    <h1> Depilacija </h1>
-    <ul class="pricelist">
-      <li v-for="(item, index) in items4" :key="item.name" :class="{ 'item': true, 'no-bottom-border': index === items4.length - 1 }">
-        <span class="item-name">{{ item.name }}</span>
-        <span class="item-price">{{ item.price }}</span>
-      </li>     
-    </ul>
-   
-    <div class="new-item" v-if="role === 'admin'">
-      <label for="item-name">Stavka:</label>
-      <input id="item-name" v-model="newItemName" type="text" />
-      <label for="item-price">Cijena:</label>
-      <input id="item-price" v-model="newItemPrice" type="text" />
-      <button @click="addItem('items4', newItemName, newItemPrice)">Dodaj</button>
-    </div>
-
-  </div>
-
-  <div class="container3">
-    <h1> Masaža </h1>
-    <ul class="pricelist">
-      <li v-for="(item, index) in items5" :key="item.name" :class="{ 'item': true, 'no-bottom-border': index === items5.length - 1 }">
-        <span class="item-name">{{ item.name }}</span>
-        <span class="item-price">{{ item.price }}</span>
-      </li>      
-    </ul>
-   
-    <div class="new-item" v-if="role === 'admin'">
-      <label for="item-name">Stavka:</label>
-      <input id="item-name" v-model="newItemName" type="text" />
-      <label for="item-price">Cijena:</label>
-      <input id="item-price" v-model="newItemPrice" type="text" />
-      <button @click="addItem('items5', newItemName, newItemPrice)">Dodaj</button>
-    </div>
-
-  </div>
-
-  <div class="container31">
-    <h1> Delux shape </h1>
-    <ul class="pricelist">
-      <li v-for="(item, index) in items6" :key="item.name" :class="{ 'item': true, 'no-bottom-border': index === items6.length - 1 }">
-        <span class="item-name">{{ item.name }}</span>
-        <span class="item-price">{{ item.price }}</span>
-      </li>     
-    </ul>
-  
-    <div class="new-item" v-if="role === 'admin'">
-      <label for="item-name">Stavka:</label>
-      <input id="item-name" v-model="newItemName" type="text" />
-      <label for="item-price">Cijena:</label>
-      <input id="item-price" v-model="newItemPrice" type="text" />
-      <button @click="addItem('items6', newItemName, newItemPrice)">Dodaj</button>
-    </div>
-
-  </div>
 </template>
     
 <style>
@@ -132,7 +40,7 @@ h1{
   align-items: center;
   justify-content: center;
   padding: 45px;
-  margin-bottom: -7%;
+  margin-bottom: 0,5%;
 }
 
 .new-item label {
@@ -288,133 +196,156 @@ export default {
     return {
       appliedDiscount: false,
       role: getUserRole(),
-      items: [
-        { name: 'Njega lica', price: '27€', originalPrice: 27 },
-        { name: 'Anti-age njega lica', price: '34€', originalPrice:34},
-        { name: 'Dubinsko čišćenje lica', price: '34€', originalPrice:34},
-        { name: 'Anti-age dubinsko čišćenje lica', price: '47€',originalPrice:47},
-        { name: 'Brow lift', price: '30€', originalPrice:30 },
-        { name: 'Šminkanje', price: '27€' , originalPrice:27},
-        { name: 'Šminkanje + trepavice', price: '34€' , originalPrice:34}, ],
-
-      items2: [
-        { name: 'Manikura', price: '11€', originalPrice:11},
-        { name: 'Lakiranje', price: '4€', originalPrice:4 },
-        { name: 'Dipping na prirodne nokte', price: '20€', originalPrice:20 },
-        { name: 'Dipping na produžene nokte', price: '27€', originalPrice:27 },
-        { name: 'Skidanje gela / akrila / trajnog laka', price: '7€', originalPrice:7 },
-        { name: 'Popravak jednog nokta', price: '4€', originalPrice:4 }, ],
-       
-      items3: [ 
-        { name: 'Estetska pedikura', price: '16€', originalPrice:16 },
-        { name: 'Trajni lak', price: '16€' , originalPrice:16},
-        { name: 'Pedikura + trajni lak', price: '27€', originalPrice:27 },
-        { name: 'Lakiranje', price: '6€', originalPrice:6 },
-        { name: 'Rekonstrukcija nokta', price: '7€', originalPrice:7 }, ],
-
-       items4: [ 
-        { name: 'Depilacija naušnica', price: '4€', originalPrice:4 },
-        { name: 'Depilacija brade', price: '4€', originalPrice:4 },
-        { name: 'Korekcija obrva', price: '5€', originalPrice:5 },
-        { name: 'Korekcija + bojanje obrva', price: '10€', originalPrice:10 },
-        { name: 'Depilacija cijelih nogu', price: '15€', originalPrice:15 },
-        { name: 'Parcijalna depilacija', price: '9€', originalPrice:9 },
-        { name: 'Bikini', price: '6€', originalPrice:6 },
-        { name: 'Brazilka', price: '8€', originalPrice:8 },
-        { name: 'Brazilka šećernom pastom', price: '14€', originalPrice:14 },
-        { name: 'Depilacija ruku', price: '8€', originalPrice:8 },
-        { name: 'Depilacija pazuha', price: '5€', originalPrice:5 },
-        { name: 'Depilacija leđa', price: '10€', originalPrice:10 }, ],
-        
-        items5: [ 
-        { name: 'Masaža lica', price: '11€', originalPrice:11 },
-        { name: 'Masaža lica i glave', price: '14€', originalPrice:14 },
-        { name: 'Parcijalna masaža', price: '14€' , originalPrice:14},
-        { name: 'Aroma masaža cijelog tijela', price: '26€', originalPrice:26 },
-        { name: 'Anticelulitna parcijalna masaža', price: '20€' , originalPrice:20},
-        { name: 'Aparativna limfna drenaža', price: '11€', originalPrice:11 },
-        { name: 'Total relax', price: '34€', originalPrice:34 }, ],
-
-        items6: [ 
-        { name: 'Delux shape noge', price: '34€', originalPrice:34 },
-        { name: 'Delux shape trbuh', price: '20€', originalPrice:20 },
-        { name: 'Delux shape paket 10 tretmana noge', price: '279€', originalPrice:279 },
-        { name: 'Delux shape paket 10 tretmana trbuh', price: '146€', originalPrice:146 },
-        { name: 'Delux shape full body 10 tretmana', price: '340€', originalPrice:340 }, ],
-        
+      allItems: [],
+      items: [],              
         newItemName: '',
-        newItemPrice: ''
-        
+        newItemPrice: ''       
 };
+
 },
 methods: {
-    discount1() {
-  if (!this.appliedDiscount) {
-    let itemsArray = [this.items, this.items2, this.items3, this.items4, this.items5, this.items6];
-    itemsArray.forEach(items => {
-      items.forEach(item => {
-        let [price, currency] = item.price.split(" ");
-        price = Number(price.slice(0, -1));
-        price = (price * 0.9).toFixed(2);
-        item.price = `${price}€`;
-      });   
+  async fetchItems() {
+      try {
+          let response = await fetch("http://localhost:3000/api/item/");
+          if (!response.ok) { 
+              throw new Error('Network response was not ok');
+          }
+          let data = await response.json();
+          this.items = data.map(item => ({
+            ...item,
+            displayPrice: `${item.price}€` 
+          }));
+      } catch (error) {
+          console.error("Error fetching the items:", error);
+      }
+    },
+
+   applyDiscount(rate) {
+    let canApplyDiscount = this.items.every(item => item.price === item.originalPrice);
+
+    if (!canApplyDiscount) {
+        console.warn("A discount is already applied. Remove it before applying a new one.");
+        return;
+    }
+
+    this.items.forEach(item => {
+        item.price = parseFloat((item.originalPrice * (1 - rate)).toFixed(2));
+        item.displayPrice = `${item.price}€`;
+        this.updateItemOnServer(item);
     });
-    this.appliedDiscount = true;   
-  }
-},
-    discount2() {
-  if (!this.appliedDiscount) {
-    let itemsArray = [this.items, this.items2, this.items3, this.items4, this.items5, this.items6];
-    itemsArray.forEach(items => {
-      items.forEach(item => {
-        let [price, currency] = item.price.split(" ");
-        price = Number(price.slice(0, -1));
-        price = (price * 0.8).toFixed(2);
-        item.price = `${price}€`;
-      });
-    });
-    this.appliedDiscount = true;
-  }
-},
-    removeDiscount() {
-  if (this.appliedDiscount) {
-    const items = [this.items, this.items2, this.items3, this.items4, this.items5, this.items6];
-    items.forEach(itemList => {
-      itemList.forEach(item => {
-        item.price = item.originalPrice + '€';
-      });
-    });
-    this.appliedDiscount = false;
-  }
 },
 
-addItem(pricelist, name, price, originalPrice) {
-  let item = { name: name, price: `${price}€`, originalPrice: `${price}`};
-  switch (pricelist) {
-    case 'items':
-      this.items.push(item);
-      break;
-    case 'items2':
-      this.items2.push(item);
-      break;
-    case 'items3':
-      this.items3.push(item);
-      break;
-    case 'items4':
-      this.items4.push(item);
-      break;
-    case 'items5':
-      this.items5.push(item);
-      break;
-    case 'items6':
-      this.items6.push(item);
-      break;
-    default:
-      console.error(`Invalid pricelist: ${pricelist}`);
+    discount1() {
+      this.applyDiscount(0.10);
+    },
+
+    discount2() {
+      this.applyDiscount(0.20);
+    },
+
+    removeDiscount() {
+  this.items.forEach(item => {
+    if (item.price !== item.originalPrice) {
+      item.price = item.originalPrice;
+      item.displayPrice = `${item.originalPrice}€`;
+      this.removeItemDiscountOnServer(item);
+    }
+  });
+},
+
+    async updateItemOnServer(item) {
+    try {
+        if (!item || !item._id) {  // Ensure you're using _id
+            throw new Error("Item or item ID missing.");
+        }
+
+        const url = `http://localhost:3000/api/item/${item._id}/discount`;
+
+        const config = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(item)
+        };
+
+        const response = await fetch(url, config);
+        if (!response.ok) {
+            const responseBody = await response.json(); 
+            throw new Error(`Server responded with status ${response.status}: ${responseBody.message}`);
+        }
+
+        const updatedItem = await response.json();
+        console.log("Item updated successfully:", updatedItem);
+
+    } catch (error) {
+        console.error("Error during fetch:", error.message);
+    }
+  },
+
+async removeItemDiscountOnServer(item) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/item/${item._id}/removeDiscount`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        return responseData;
+    } catch (error) {
+        console.error("Error during fetch:", error.message, "Full error:", error);
+    }
+},
+
+async addItem(name, price) {
+  let item = {
+      name: this.newItemName,
+      price: parseFloat(this.newItemPrice),
+      originalPrice: parseFloat(this.newItemPrice)
+    };
+   try {
+    
+    let response = await fetch("http://localhost:3000/api/item/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(item)
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    let responseData = await response.json();
+
+    if (responseData.success) {
+  let addedItem = {
+    ...responseData.item,
+    displayPrice: `${responseData.item.price}€`
+  };
+  this.items.push(addedItem);
+
+    } else {
+      console.error("Failed to add the item on the server side");
+    }
+
+  } catch (error) {
+    console.error("Error adding the item:", error);
   }
+
   this.newItemName = '';
   this.newItemPrice = '';
 },
 },
+ mounted() {
+    this.fetchItems();
+  }
 };
 </script>
