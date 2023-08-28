@@ -25,7 +25,8 @@
       </div></div>
       
     <div v-else>
-            <p class="booking">Molimo ulogirajte se kako bi rezervirali termin!</p>
+            <h1>Molimo ulogirajte se kako bi rezervirali termin!</h1>
+            <button class="redirect" @click=redirectToPage()>Ulogiraj se</button>
         </div>
         <div v-if="showSuccessPopup" class="success-popup">
         Vaš termin je zabilježen!
@@ -43,6 +44,7 @@
                     <p>Datum: {{ new Date(reservation.reservationDate).toLocaleDateString() }}</p>
                     <p>Vrijeme: {{ new Date(reservation.reservationDate).toLocaleTimeString() }}</p>
                     <p>Broj telefona: {{ reservation.phoneNumber }}</p>
+                    <button @click="deleteReservation(reservation._id)" class="removeRes">Ukloni rezervaciju</button>
                 </div>
             </div>
         </li>
@@ -55,6 +57,38 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+.redirect{
+  font-family: 'Open Sans', sans-serif;
+  background-color: #FFB6C1;
+  color: black;
+  padding: 15px 23px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 2%;
+}
+
+.redirect:hover{
+  background-color: #ff99a8;
+}
+
+.removeRes{
+  font-family: 'Open Sans', sans-serif;
+  background-color: #FFB6C1;
+  color: black;
+  padding: 15px 23px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.removeRes:hover{
+  background-color: #ff99a8;
+}
 
 .reservation-item {
   display: flex;
@@ -177,7 +211,7 @@ select {
 }
 
 button[type="submit"]:hover {
-  background-color: #ff99a8;;
+  background-color: #ff99a8;
 }
 
 input:focus,
@@ -227,6 +261,9 @@ export default {
     closePopup() {
     this.showSuccessPopup = false;
   },
+  redirectToPage() {
+      window.location.href = '/login';
+    },
     async submitForm() {
   const formData = {
     selectedCategory: this.selectedCategory,
@@ -290,7 +327,28 @@ async fetchReservations() {
  getServiceNameById(id) {
         const service = this.categories.find(category => category.id == id);
         return service ? service.name : '';
+    },
+  
+  async deleteReservation(reservationId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/reserved/${reservationId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+        });
+
+        if (response.ok) {
+            
+            this.reservations = this.reservations.filter(reservation => reservation._id !== reservationId);
+            console.log('Reservation deleted successfully');
+        } else {
+            console.error('Error deleting reservation', await response.text());
+        }
+    } catch (error) {
+        console.error('Error deleting reservation', error);
     }
+}
 
   },
   mounted(){

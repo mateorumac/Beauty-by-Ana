@@ -12,6 +12,7 @@
     :class="{ 'item': true, 'no-bottom-border': index === items.length - 1 }">
         <span class="item-name">{{ item.name }}</span>
         <span class="item-price">{{ item.displayPrice }}</span>
+        <button type="button" v-if="role === 'admin'" @click="removeItem(item)">Ukloni</button>
       </li>     
     </ul>
     
@@ -41,6 +42,7 @@ h1{
   justify-content: center;
   padding: 45px;
   margin-bottom: 0,5%;
+  margin-top: -10%;
 }
 
 .new-item label {
@@ -194,7 +196,6 @@ import  {getUserRole}  from '../router/helpers';
 export default {
   data() {
     return {
-      appliedDiscount: false,
       role: getUserRole(),
       allItems: [],
       items: [],              
@@ -343,6 +344,33 @@ async addItem(name, price) {
   this.newItemName = '';
   this.newItemPrice = '';
 },
+
+async removeItem(item) {
+  try {
+    // Make a DELETE request to the backend to delete the item
+    let response = await fetch(`http://localhost:3000/api/item/${item._id}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    let responseData = await response.json();
+
+if (responseData.success) {
+    // Remove the item from the UI
+    const index = this.items.findIndex(i => i._id === item._id);
+    if (index !== -1) {
+        this.items.splice(index, 1);        
+    }
+} else {
+    console.error("Failed to remove the item on the server side:", responseData.message);
+}
+  } catch (error) {
+    console.error("Error removing the item:", error);
+  }
+}
 },
  mounted() {
     this.fetchItems();

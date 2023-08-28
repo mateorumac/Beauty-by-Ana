@@ -17,7 +17,9 @@
             <p class="homepage">
               <i v-for="rev in reviews" :key="rev._id">
             {{ rev.reviewerName }} {{ rev.rating }} &starf;<br>
-            {{ rev.review }}<br><br><br>
+            {{ rev.review }}<br><br>
+            <button type="button" v-if="role === 'admin'" @click="deleteReview(rev._id)">Obriši recenziju</button>
+            <br><br><br>
               </i>
             </p>
             </div>
@@ -48,7 +50,8 @@
             </form>
             </div>
             <div v-else>
-            <p>Ulogirajte se kako bi ostavili svoj dojam!</p>
+            <h2>Ulogirajte se kako bi ostavili svoj dojam!</h2>
+            <button class="redirect" @click=redirectToPage()>Ulogiraj se</button>
         </div>
           </div>
           <div v-if="showSuccessPopup" class="success-popup">
@@ -75,6 +78,22 @@ textarea {
   width: 65%;
   padding: 2%;
   font-family: 'Open Sans', sans-serif;
+}
+
+.redirect{
+  font-family: 'Open Sans', sans-serif;
+  background-color: #FFB6C1;
+  color: black;
+  padding: 15px 23px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 2%;
+}
+
+.redirect:hover{
+  background-color: #ff99a8;
 }
 
 button[type="button"] {
@@ -145,6 +164,7 @@ button[type="button"]:hover {
 </style>
 
 <script>
+import  {getUserRole}  from '../router/helpers';
 import  {isAuthenticated}  from '../router/helpers';
 export default {
   name: 'ReviewForm',
@@ -154,7 +174,8 @@ export default {
       review: '',
       username: '',
       showSuccessPopup: false,
-      reviews: []
+      reviews: [],
+      role: getUserRole()
     };
   },
   mounted(){ 
@@ -165,6 +186,9 @@ export default {
     closePopup() {
     this.showSuccessPopup = false;
   },
+  redirectToPage() {
+      window.location.href = '/login';
+    },
     async submitReview() {
   const reviewData = {
     review: this.review,
@@ -212,6 +236,24 @@ export default {
             }
         } catch (error) {
             console.error('Error fetching the reviews:', error);
+        }
+    },
+
+  async deleteReview(id) {
+        try {
+            const response = await fetch(`http://localhost:3000/api/review/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                
+                this.reviews = this.reviews.filter(review => review._id !== id);
+                console.log('Review deleted successfully');
+            } else {
+                console.error('Failed to delete review');
+            }
+        } catch (error) {
+            console.error('Error deleting the review:', error);
         }
     }
 

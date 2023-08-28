@@ -126,8 +126,6 @@ export default {
           document.cookie = `token=${data.token}; max-age=${7 * 24 * 60 * 60}; secure; path=/`;
           localStorage.setItem('jwtToken', data.token);
           localStorage.setItem('userEmail', data.userEmail);
-          localStorage.setItem('userFirstName', data.userFirstName); 
-          localStorage.setItem('userLastName', data.userLastName.charAt(0));
           
           this.$router.push("/");
           console.log("Uspješna prijava");
@@ -135,8 +133,8 @@ export default {
           console.log("error");
         }
       } catch (error) {
-
-        this.$message.error(error.message || "Invalid email or password");
+          const errorMessage = error && error.message ? error.message : "Invalid email or password";
+          this.$message.error(errorMessage);
       }
     },
   },
