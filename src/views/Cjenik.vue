@@ -207,7 +207,7 @@ export default {
 methods: {
   async fetchItems() {
       try {
-          let response = await fetch("http://localhost:3000/api/item/");
+          let response = await fetch("https://wa-backend4.onrender.com/api/item/");
           if (!response.ok) { 
               throw new Error('Network response was not ok');
           }
@@ -260,7 +260,7 @@ methods: {
             throw new Error("Item or item ID missing.");
         }
 
-        const url = `http://localhost:3000/api/item/${item._id}/discount`;
+        const url = `https://wa-backend4.onrender.com/api/item/${item._id}/discount`;
 
         const config = {
             method: 'PUT',
@@ -286,7 +286,7 @@ methods: {
 
 async removeItemDiscountOnServer(item) {
     try {
-        const response = await fetch(`http://localhost:3000/api/item/${item._id}/removeDiscount`, {
+        const response = await fetch(`https://wa-backend4.onrender.com/api/item/${item._id}/removeDiscount`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -312,7 +312,7 @@ async addItem(name, price) {
     };
    try {
     
-    let response = await fetch("http://localhost:3000/api/item/add", {
+    let response = await fetch("https://wa-backend4.onrender.com/api/item/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -348,7 +348,7 @@ async addItem(name, price) {
 async removeItem(item) {
   try {
     // Make a DELETE request to the backend to delete the item
-    let response = await fetch(`http://localhost:3000/api/item/${item._id}`, {
+    let response = await fetch(`https://wa-backend4.onrender.com/api/item/${item._id}`, {
       method: "DELETE"
     });
 

@@ -131,7 +131,7 @@ export default {
 
             let json = { "name": this.name, "lname": this.lname, "email": this.email, "password": this.password }
 
-            await fetch(' http://localhost:3000/api/auth/register', {
+            await fetch(' https://wa-backend4.onrender.com/api/auth/register', {
                 method: 'POST',
                 body: JSON.stringify(json),
                 headers: {

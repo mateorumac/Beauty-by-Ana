@@ -204,7 +204,7 @@ export default {
 
       async logout() {
       try {
-        const response = await fetch('http://localhost:3000/api/auth/logout', {
+        const response = await fetch('https://wa-backend4.onrender.com/api/auth/logout', {
           method: 'POST',
           credentials: 'include',
           headers: {

@@ -274,7 +274,7 @@ export default {
   const jwtToken = localStorage.getItem('jwtToken');
 
   try {   
-    const response = await fetch("http://localhost:3000/api/reserved/reserved", {
+    const response = await fetch("https://wa-backend4.onrender.com/api/reserved/reserved", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -307,7 +307,7 @@ async fetchReservations() {
         const jwtToken = localStorage.getItem('jwtToken');
 
         try {
-            const response = await fetch("http://localhost:3000/api/reserved/getAllReservations", {
+            const response = await fetch("https://wa-backend4.onrender.com/api/reserved/getAllReservations", {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + jwtToken
@@ -331,7 +331,7 @@ async fetchReservations() {
   
   async deleteReservation(reservationId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/reserved/${reservationId}`, {
+        const response = await fetch(`https://wa-backend4.onrender.com/api/reserved/${reservationId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
