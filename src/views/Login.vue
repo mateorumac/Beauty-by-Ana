@@ -130,7 +130,7 @@ export default {
           this.$router.push("/");
           console.log("Uspješna prijava");
         } else {
-          console.log("error", e.message);
+          console.log("error");
         }
       } catch (error) {
           const errorMessage = error && error.message ? error.message : "Invalid email or password";

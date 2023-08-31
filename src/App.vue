@@ -204,6 +204,7 @@ export default {
 
       async logout() {
       try {
+        localStorage.removeItem('jwtToken');
         const response = await fetch('https://wa-backend4.onrender.com/api/auth/logout', {
           method: 'POST',
           credentials: 'include',
