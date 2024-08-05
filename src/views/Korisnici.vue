@@ -15,38 +15,39 @@
     </div>
 
     <div class="right-column">
-      <div v-if="isAuthenticated()" class="reviews">
-        <h2>Leave Your Feedback!</h2>
-        <form>
-          <div class="form-group">
-            <label for="username">Your Name</label>
-            <input type="text" id="username" v-model="username" />
-            <label for="review">Your Feedback</label>
-            <textarea id="review" v-model="review"></textarea>
-          </div>
-          <div class="form-group">
-            <div class="star-rating">
-              <input type="radio" id="5-stars" name="rating" value="5" v-model="rating" />
-              <label for="5-stars" class="star">&bigstar;</label>
-              <input type="radio" id="4-stars" name="rating" value="4" v-model="rating" />
-              <label for="4-stars" class="star">&bigstar;</label>
-              <input type="radio" id="3-stars" name="rating" value="3" v-model="rating" />
-              <label for="3-stars" class="star">&bigstar;</label>
-              <input type="radio" id="2-stars" name="rating" value="2" v-model="rating" />
-              <label for="2-stars" class="star">&bigstar;</label>
-              <input type="radio" id="1-star" name="rating" value="1" v-model="rating" />
-              <label for="1-star" class="star">&bigstar;</label>
-            </div>
-          </div>
-          <button type="button" @click="submitReview()">Submit</button>
-        </form>
+      <div v-if="isAuthenticated()" class="reviews-section">
         <div v-if="reviews.length" class="review-list">
-          <h3>Reviews:</h3>
           <div v-for="rev in reviews" :key="rev._id" class="review-item">
-            <p>{{ rev.reviewerName }} {{ rev.rating }} &starf;</p>
-            <p>{{ rev.review }}</p>
+            <p class="review-author">{{ rev.reviewerName }} {{ rev.rating }} &starf;</p>
+            <p class="review-text">{{ rev.review }}</p>
             <button type="button" v-if="role === 'admin'" @click="deleteReview(rev._id)">Delete Review</button>
           </div>
+        </div>
+        <div class="feedback-form">
+          <h2>Leave Your Feedback!</h2>
+          <form>
+            <div class="form-group">
+              <label for="username">Your Name</label>
+              <input type="text" id="username" v-model="username" />
+              <label for="review">Your Feedback</label>
+              <textarea id="review" v-model="review"></textarea>
+            </div>
+            <div class="form-group">
+              <div class="star-rating">
+                <input type="radio" id="5-stars" name="rating" value="5" v-model="rating" />
+                <label for="5-stars" class="star">&bigstar;</label>
+                <input type="radio" id="4-stars" name="rating" value="4" v-model="rating" />
+                <label for="4-stars" class="star">&bigstar;</label>
+                <input type="radio" id="3-stars" name="rating" value="3" v-model="rating" />
+                <label for="3-stars" class="star">&bigstar;</label>
+                <input type="radio" id="2-stars" name="rating" value="2" v-model="rating" />
+                <label for="2-stars" class="star">&bigstar;</label>
+                <input type="radio" id="1-star" name="rating" value="1" v-model="rating" />
+                <label for="1-star" class="star">&bigstar;</label>
+              </div>
+            </div>
+            <button type="button" @click="submitReview()">Submit</button>
+          </form>
         </div>
       </div>
 

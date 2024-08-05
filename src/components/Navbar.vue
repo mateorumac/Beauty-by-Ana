@@ -11,9 +11,11 @@
       <li><router-link to="/termini">Booking</router-link></li>
       <li><router-link to="/korisnici">Reviews</router-link></li>
       <li><router-link to="/kontakt">Contact</router-link></li>
-      <li v-if="!isAuthenticated()"><router-link to="/signup" class="register-button">Register now</router-link></li>
+      <li v-if="!isAuthenticated()">
+        <router-link to="/signup" class="register-button">Register now</router-link>
+      </li>
       <li v-if="isAuthenticated()">
-        <button class="register-button" @click="logout"><i class="fa fa-sign-out"></i>&nbsp;EXIT</button>
+        <button @click="logout" class="register-button">EXIT</button>
       </li>
     </ul>
     <div class="burger" @click="toggleNav">
@@ -27,13 +29,16 @@
       <li @click="toggleNav"><router-link to="/termini">Booking</router-link></li>
       <li @click="toggleNav"><router-link to="/korisnici">Reviews</router-link></li>
       <li @click="toggleNav"><router-link to="/kontakt">Contact</router-link></li>
-      <li v-if="!isAuthenticated()" @click="toggleNav"><router-link to="/signup" class="register-button">Register now</router-link></li>
+      <li v-if="!isAuthenticated()" @click="toggleNav">
+        <router-link to="/signup" class="register-button">Register now</router-link>
+      </li>
       <li v-if="isAuthenticated()">
-        <button class="register-button" @click="logout"><i class="fa fa-sign-out"></i>EXIT</button>
+        <button class="register-button" @click="logout">EXIT</button>
       </li>
     </ul>
   </nav>
 </template>
+
 
 <script>
 import { isAuthenticated } from '../router/helpers'; // Adjust the path to the correct location
@@ -141,6 +146,8 @@ nav ul {
   color: black;
   font-weight: bold;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none; /* Ensure that the button text has no underline */
+  border: none; /* Remove any default button borders */
 }
 
 .register-button:hover {

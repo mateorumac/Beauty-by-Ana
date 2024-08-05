@@ -1,56 +1,57 @@
 <template>
-  <div v-if="isAuthenticated()" class="booking">
-    <h2 class="reztekst">Book an appointment</h2>
-    <div class="booking">
-    <form  class="rezervacija" @submit.prevent="submitForm">
-        <div class="booking">
-        <label for="category">Type of service:</label>
-        <select id="category" v-model="selectedCategory" required>
-          <option disabled value="">Please choose one</option>
-          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
-        </select>
-        </div>
-      <div class="booking">
-        <label for="time">Time and Date:</label>
-        <input type="datetime-local" id="time" v-model="selectedTime" required>
+  <div class="page-container">
+    <div class="content-wrap">
+      <div v-if="isAuthenticated()" class="booking">
+        <h2 class="reztekst">Book an appointment</h2>
+        <form class="rezervacija" @submit.prevent="submitForm">
+          <div class="booking">
+            <label for="category">Type of service:</label>
+            <select id="category" v-model="selectedCategory" required>
+              <option disabled value="">Please choose one</option>
+              <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+            </select>
+          </div>
+          <div class="booking">
+            <label for="time">Time and Date:</label>
+            <input type="datetime-local" id="time" v-model="selectedTime" required>
+          </div>
+          <div class="booking">
+            <label for="phone">Phone number:</label>
+            <input type="tel" id="phone" v-model="clientPhone" required>
+          </div>
+          <div class="booking">
+            <button class="rsvbtn" type="submit">Book now</button>
+          </div>
+        </form>
       </div>
-      <div class="booking">
-        <label for="phone">Phone number:</label>
-        <input type="tel" id="phone" v-model="clientPhone" required>
-      </div>
-      <div class="booking">
-        <button class="rsvbtn" type="submit">Book now</button>
-      </div>
-    </form>
-      </div></div>
-      
       <div v-else class="login-card">
-            <h1>Please login to book an appointment!</h1>
-            <button class="redirect" @click=redirectToPage()>Log in</button>
-        </div>
-        <div v-if="showSuccessPopup" class="success-popup">
+        <h1 class="login-message">Please login to book an appointment!</h1>
+        <button class="redirect" @click="redirectToPage()">Log in</button>
+      </div>
+      <div v-if="showSuccessPopup" class="success-popup">
         Your appointment is booked!
         <button @click="closePopup">Close</button>
       </div>
-        
-  <div v-if="role === 'admin'">
-    <h2 class="reztekst">Booked appointments</h2>
-    <ul>
-        <li v-for="reservation in reservations" :key="reservation._id" class="reservation-item">
+      
+      <div v-if="role === 'admin'">
+        <h2 class="reztekst">Booked appointments</h2>
+        <ul>
+          <li v-for="reservation in reservations" :key="reservation._id" class="reservation-item">
             <div class="reservation-container">
-                <div class="booking">
-                    <h2>{{ getServiceNameById(reservation.serviceType) }}</h2>
-                    <p>Full name: {{ reservation.comment.split("Reserved by ")[1] }}</p>
-                    <p>Date: {{ new Date(reservation.reservationDate).toLocaleDateString() }}</p>
-                    <p>Time: {{ new Date(reservation.reservationDate).toLocaleTimeString() }}</p>
-                    <p>Phone number: {{ reservation.phoneNumber }}</p>
-                    <button @click="deleteReservation(reservation._id)" class="removeRes">Remove appointment</button>
-                </div>
+              <div class="booking">
+                <h2>{{ getServiceNameById(reservation.serviceType) }}</h2>
+                <p>Full name: {{ reservation.comment.split("Reserved by ")[1] }}</p>
+                <p>Date: {{ new Date(reservation.reservationDate).toLocaleDateString() }}</p>
+                <p>Time: {{ new Date(reservation.reservationDate).toLocaleTimeString() }}</p>
+                <p>Phone number: {{ reservation.phoneNumber }}</p>
+                <button @click="deleteReservation(reservation._id)" class="removeRes">Remove appointment</button>
+              </div>
             </div>
-        </li>
-    </ul>
-</div>
-
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 
@@ -58,122 +59,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
-.login-card {
-  font-family: 'Great Vibes', cursive;
-  background-color: #ffffff; /* Make card color different from background */
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 600px; /* Wider card */
-  margin: 20px auto;
+.page-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 227px); /* Adjust as needed to ensure footer at bottom */
+  min-height: 75.8vh; /* Ensure the container covers the full height of the viewport */
 }
 
-
-.redirect{
-  font-family: 'Open Sans', sans-serif;
-  background-color: #FFB6C1;
-  color: black;
-  padding: 15px 23px;
-  font-size: 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 2%;
-}
-
-.redirect:hover{
-  background-color: #ff99a8;
-}
-
-.removeRes{
-  font-family: 'Open Sans', sans-serif;
-  background-color: #FFB6C1;
-  color: black;
-  padding: 15px 23px;
-  font-size: 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.removeRes:hover{
-  background-color: #ff99a8;
-}
-
-.reservation-item {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  margin: 10px;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.reservation-container {
-  
-  padding: 20px; 
-  background-color: #f5f5f5;
-  display: flex; 
-  align-items: center;
-  border-radius: 10px;
-  font-family: 'Open Sans', sans-serif;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-.reztekst {
-  margin-bottom: 20px;
-  margin-top: 2%;
-  font-family: 'Great Vibes', cursive;
-  font-size: 50px;
-}
-
-.success-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-size: 20px;
-  color: white;
-  z-index: 1000;
-}
-
-.success-popup button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-}
-
-.rezervacija {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
+.content-wrap {
+  margin-top: 50px;
+  flex: 1; /* Allow the content to expand and push footer to the bottom */
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-  background-color: #f5f5f5;
-  margin-bottom: 1%;
-  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align all content horizontally */
 }
 
 .booking {
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 700px; /* Restrict maximum width of form container */
   margin-bottom: 20px;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
@@ -198,6 +103,8 @@ input[type="tel"] {
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: 'Open Sans', sans-serif;
+  width: 100%; /* Ensure fields take up full width of their container */
+  max-width: 100%; /* Ensure fields don’t exceed the container width */
 }
 
 select {
@@ -249,8 +156,43 @@ textarea:focus {
   height: 100px;
 }
 
+.login-card {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px; /* Adjusted max-width for better appearance */
+  margin: 20px auto;
+  margin-top: 120px;
+}
 
+.login-message {
+  font-size: 30px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.redirect {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #FFB6C1;
+  color: black;
+  padding: 15px 30px; /* Adjusted padding for a better button size */
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none; /* Remove underline from link button */
+}
+
+.redirect:hover {
+  background-color: #ff99a8;
+}
 </style>
+
+
 <script>
 import  {isAuthenticated}  from '../router/helpers';
 import  {getUserRole}  from '../router/helpers';
