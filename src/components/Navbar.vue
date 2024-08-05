@@ -53,24 +53,42 @@ export default {
     isAuthenticated,
 
     async logout() {
-      try {
-        localStorage.removeItem('jwtToken');
-        const response = await fetch('https://wa-backend4.onrender.com/api/auth/logout', {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({})
-        });
+  try {
+    // Remove token from localStorage
+    localStorage.removeItem('jwtToken');
+    console.log('Token removed from localStorage.');
 
-        const data = await response.json();
-        console.log(data.message);
-        
-      } catch (error) {
-        console.error(error);
-      }
+    // Clear cookies (if applicable)
+    document.cookie.split(';').forEach(cookie => {
+      document.cookie = cookie.replace(/^ +/, '').replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
+    });
+    console.log('Cookies cleared.');
+
+    // Send logout request to backend
+    const response = await fetch('https://wa-backend4.onrender.com/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({})
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+
+    const data = await response.json();
+    console.log('Logout response:', data);
+
+    // Optionally redirect to login or home page
+     this.$router.push('/home');
+
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
+}
+
   }
 };
 </script>
