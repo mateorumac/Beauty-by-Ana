@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <!-- Left Column for Introduction -->
     <div class="left-column">
       <h2 class="headline">We Value Your Opinion!</h2>
       <p class="homepage">
@@ -14,15 +15,23 @@
       <img src="kor1.jpg" class="responsive-img" />
     </div>
 
+    <!-- Right Column for Reviews and Feedback Form -->
     <div class="right-column">
+      <!-- Review Section -->
       <div v-if="isAuthenticated()" class="reviews-section">
         <div v-if="reviews.length" class="review-list">
           <div v-for="rev in reviews" :key="rev._id" class="review-item">
-            <p class="review-author">{{ rev.reviewerName }} {{ rev.rating }} &starf;</p>
+            <div class="review-header">
+              <p class="review-author">{{ rev.reviewerName }}</p>
+              <div class="review-rating">
+                <span v-for="n in 5" :key="n" :class="{'filled': n <= rev.rating}">&star;</span>
+              </div>
+            </div>
             <p class="review-text">{{ rev.review }}</p>
             <button type="button" v-if="role === 'admin'" @click="deleteReview(rev._id)">Delete Review</button>
           </div>
         </div>
+        <!-- Feedback Form -->
         <div class="feedback-form">
           <h2>Leave Your Feedback!</h2>
           <form>
@@ -51,18 +60,21 @@
         </div>
       </div>
 
+      <!-- Login Prompt -->
       <div v-else class="login-prompt">
         <h2 class="headline">Please log in to leave your feedback!</h2>
         <button class="redirect" @click="redirectToPage()">Log In</button>
       </div>
     </div>
 
+    <!-- Success Popup -->
     <div v-if="showSuccessPopup" class="success-popup">
       Your feedback has been recorded!
       <button @click="closePopup">Close</button>
     </div>
   </div>
 </template>
+
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
@@ -71,6 +83,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -105,21 +118,6 @@ body {
   margin-top: 20px;
   opacity: 0; /* Initially hidden for fade-in effect */
   animation: fadeInUp 1s ease-out forwards; /* Fade-in animation */
-}
-
-.login-prompt {
-  background-color: white; /* White background */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  padding: 18px; /* Padding inside the card */
-  text-align: center; /* Center text */
-  margin-top: 300px; /* Adjust the margin to control vertical spacing */
-  opacity: 0; /* Initially hidden for fade-in effect */
-  animation: fadeInUp 1s ease-out forwards; /* Fade-in animation */
-}
-
-.login-prompt h2.headline {
-  margin-top: 0; /* Remove top margin to align better within the card */
 }
 
 .homepage {
@@ -220,13 +218,54 @@ button[type="button"]:hover {
   transform: scale(1.05); /* Slightly increase size on hover */
 }
 
+.review-list {
+  margin-top: 20px;
+}
+
+.review-item {
+  background-color: #f9f9f9; /* Light background for each review */
+  border: 1px solid #ddd; /* Border around review */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-author {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.review-rating {
+  display: flex;
+}
+
+.review-rating span {
+  color: #ddd;
+  font-size: 1.5em;
+}
+
+.review-rating .filled {
+  color: #ffb400;
+}
+
+.review-text {
+  margin-top: 10px;
+  font-size: 1em;
+}
+
 .star-rating {
   display: flex;
   flex-direction: row-reverse;
   font-size: 1.5em;
   justify-content: center;
   text-align: center;
-  animation: fadeIn 1s ease-out; /* Fade-in animation */
 }
 
 .star-rating input {
@@ -247,18 +286,9 @@ button[type="button"]:hover {
   color: rgb(250, 176, 5);
 }
 
-.review-list {
-  margin-top: 20px;
-}
-
-.review-item {
-  margin-bottom: 10px;
-}
-
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    /* Ensure opacity is set to 1 for visibility */
     opacity: 1; /* Ensure container is visible */
     animation: none; /* Disable animations */
   }
@@ -281,7 +311,7 @@ button[type="button"]:hover {
   .responsive-img {
     max-width: 100%;
   }
-  
+
   .login-prompt {
     text-align: center; /* Center text and button */
     margin-top: 40px; /* Added more top margin */
@@ -292,7 +322,6 @@ button[type="button"]:hover {
     margin-top: 20px; /* Increased margin-top for spacing */
   }
 }
-
 
 /* Keyframe animations */
 @keyframes fadeIn {
@@ -336,8 +365,8 @@ button[type="button"]:hover {
     transform: translateX(0);
   }
 }
-
 </style>
+
 
 <script>
 import { getUserRole } from '../router/helpers';

@@ -148,8 +148,11 @@ export default {
           localStorage.setItem('jwtToken', data.token);
           localStorage.setItem('userEmail', data.userEmail);
           
-          this.$router.push("/");
-          console.log("Successful login");
+          this.$router.push("/").then(() => {
+          window.location.reload();
+        });
+
+        console.log("Successful login");
         } else {
           console.log("Error");
         }
