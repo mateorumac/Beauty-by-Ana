@@ -81,11 +81,16 @@ export default {
     const data = await response.json();
     console.log('Logout response:', data);
 
+    // Optionally redirect to login or home page
+    // this.$router.push('/login');
+
+    // Force page reload
+    window.location.reload();
+
   } catch (error) {
     console.error('Logout error:', error);
   }
 }
-
   }
 };
 </script>
