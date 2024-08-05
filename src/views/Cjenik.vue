@@ -87,7 +87,7 @@ h1 {
   width: 50%;
   margin: 0 auto;
   text-align: center;
-  min-height: calc(100vh - 187px); /* Adjust as needed to ensure footer at bottom */
+  min-height: calc(100vh - 180px); /* Adjust as needed to ensure footer at bottom */
   display: flex;
   flex-direction: column;
   justify-content: center;

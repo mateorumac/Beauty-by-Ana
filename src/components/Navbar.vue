@@ -10,7 +10,6 @@
       <li><router-link to="/cjenik">Prices</router-link></li>
       <li><router-link to="/termini">Booking</router-link></li>
       <li><router-link to="/korisnici">Reviews</router-link></li>
-      <li><router-link to="/kontakt">Contact</router-link></li>
       <li v-if="!isAuthenticated()">
         <router-link to="/signup" class="register-button">Register now</router-link>
       </li>
@@ -28,7 +27,6 @@
       <li @click="toggleNav"><router-link to="/cjenik">Prices</router-link></li>
       <li @click="toggleNav"><router-link to="/termini">Booking</router-link></li>
       <li @click="toggleNav"><router-link to="/korisnici">Reviews</router-link></li>
-      <li @click="toggleNav"><router-link to="/kontakt">Contact</router-link></li>
       <li v-if="!isAuthenticated()" @click="toggleNav">
         <router-link to="/signup" class="register-button">Register now</router-link>
       </li>
@@ -38,7 +36,6 @@
     </ul>
   </nav>
 </template>
-
 
 <script>
 import { isAuthenticated } from '../router/helpers'; // Adjust the path to the correct location

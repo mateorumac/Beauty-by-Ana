@@ -56,13 +56,12 @@
 
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
 .page-container {
   display: flex;
   flex-direction: column;
-  min-height: 75.8vh; /* Ensure the container covers the full height of the viewport */
+  min-height: 80.5vh; /* Ensure the container covers the full height of the viewport */
 }
 
 .content-wrap {
