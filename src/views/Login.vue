@@ -1,16 +1,23 @@
+Here is the updated code with text translated to English, centrally aligned labels above the input fields, and an additional text below the button to navigate users to the registration page:
+
+```html
 <template>
   <div class="container52">
-    <h2 class="title1">Prijava</h2>
+    <h2 class="title1">Login</h2>
     <form @submit.prevent="handleLogin">
       <div class="form-group1">
         <label class="prijava" for="email">E-mail</label>
         <input type="email" v-model="email" required />
       </div>
       <div class="form-group1">
-        <label class="prijava" for="password">Lozinka</label>
+        <label class="prijava" for="password">Password</label>
         <input type="password" v-model="password" required/>
       </div>
-      <button type="button" @click="login()">Prijavi se</button>
+      <div class="button-container">
+        <button type="button" @click="login()">Login</button>
+      </div>
+      <br><br>
+      <p class="registration">Don't have an account? &nbsp;<router-link to="/signup">Register</router-link></p>
     </form>
   </div>
 </template>
@@ -26,10 +33,14 @@
   border-radius: 10px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   max-width: 800px;
-  padding-bottom: 80px;
+  padding: 40px;
   margin: 40px auto;
-  margin-bottom: 4.3%;
-  margin-top: 4.3%;
+}
+
+.registration {
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .title1 {
@@ -43,7 +54,9 @@
 .form-group1 {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Center align labels */
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .prijava {
@@ -51,6 +64,7 @@
   font-size: 23px;
   font-weight: bold;
   margin-bottom: 15px;
+  text-align: center; /* Center align text */
 }
 
 input {
@@ -59,6 +73,14 @@ input {
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ddd;
+  width: 100%; /* Full width input fields */
+  max-width: 400px; /* Maximum width for input fields */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Center align button */
+  width: 100%;
 }
 
 button[type="button"] {
@@ -78,14 +100,14 @@ button[type="button"]:hover {
 }
 
 @media (max-width: 600px) {
-  .container5 {
+  .container52 {
     max-width: 90%;
     padding: 30px;
   }
-  .title {
+  .title1 {
     font-size: 26px;
   }
-  label {
+  .prijava {
     font-size: 16px;
   }
   input {
@@ -104,8 +126,8 @@ export default {
   name: "Login",
   data() {
     return {
-        email: "",
-        password: "",    
+      email: "",
+      password: "",    
     };
   },
   methods: {
@@ -118,7 +140,6 @@ export default {
           body: JSON.stringify({
             email: this.email,
             password: this.password,
-
           }),
         });
         const data = await response.json();
@@ -128,13 +149,13 @@ export default {
           localStorage.setItem('userEmail', data.userEmail);
           
           this.$router.push("/");
-          console.log("Uspješna prijava");
+          console.log("Successful login");
         } else {
-          console.log("error");
+          console.log("Error");
         }
       } catch (error) {
-          const errorMessage = error && error.message ? error.message : "Invalid email or password";
-          this.$message.error(errorMessage);
+        const errorMessage = error && error.message ? error.message : "Invalid email or password";
+        this.$message.error(errorMessage);
       }
     },
   },

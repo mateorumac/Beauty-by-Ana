@@ -1,50 +1,50 @@
 <template>
   <div v-if="isAuthenticated()" class="booking">
-    <h2 class="reztekst">Rezerviraj termin</h2>
+    <h2 class="reztekst">Book an appointment</h2>
     <div class="booking">
     <form  class="rezervacija" @submit.prevent="submitForm">
         <div class="booking">
-        <label for="category">Vrsta usluge:</label>
+        <label for="category">Type of service:</label>
         <select id="category" v-model="selectedCategory" required>
-          <option disabled value="">Molimo odaberite jednu</option>
+          <option disabled value="">Please choose one</option>
           <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
         </div>
       <div class="booking">
-        <label for="time">Vrijeme:</label>
+        <label for="time">Time and Date:</label>
         <input type="datetime-local" id="time" v-model="selectedTime" required>
       </div>
       <div class="booking">
-        <label for="phone">Broj telefona:</label>
+        <label for="phone">Phone number:</label>
         <input type="tel" id="phone" v-model="clientPhone" required>
       </div>
       <div class="booking">
-        <button class="rsvbtn" type="submit">Rezerviraj</button>
+        <button class="rsvbtn" type="submit">Book now</button>
       </div>
     </form>
       </div></div>
       
-    <div v-else>
-            <h1>Molimo ulogirajte se kako bi rezervirali termin!</h1>
-            <button class="redirect" @click=redirectToPage()>Ulogiraj se</button>
+      <div v-else class="login-card">
+            <h1>Please login to book an appointment!</h1>
+            <button class="redirect" @click=redirectToPage()>Log in</button>
         </div>
         <div v-if="showSuccessPopup" class="success-popup">
-        Vaš termin je zabilježen!
-        <button @click="closePopup">Zatvori</button>
+        Your appointment is booked!
+        <button @click="closePopup">Close</button>
       </div>
         
   <div v-if="role === 'admin'">
-    <h2 class="reztekst">Zakazani termini</h2>
+    <h2 class="reztekst">Booked appointments</h2>
     <ul>
         <li v-for="reservation in reservations" :key="reservation._id" class="reservation-item">
             <div class="reservation-container">
                 <div class="booking">
                     <h2>{{ getServiceNameById(reservation.serviceType) }}</h2>
-                    <p>Ime i prezime: {{ reservation.comment.split("Reserved by ")[1] }}</p>
-                    <p>Datum: {{ new Date(reservation.reservationDate).toLocaleDateString() }}</p>
-                    <p>Vrijeme: {{ new Date(reservation.reservationDate).toLocaleTimeString() }}</p>
-                    <p>Broj telefona: {{ reservation.phoneNumber }}</p>
-                    <button @click="deleteReservation(reservation._id)" class="removeRes">Ukloni rezervaciju</button>
+                    <p>Full name: {{ reservation.comment.split("Reserved by ")[1] }}</p>
+                    <p>Date: {{ new Date(reservation.reservationDate).toLocaleDateString() }}</p>
+                    <p>Time: {{ new Date(reservation.reservationDate).toLocaleTimeString() }}</p>
+                    <p>Phone number: {{ reservation.phoneNumber }}</p>
+                    <button @click="deleteReservation(reservation._id)" class="removeRes">Remove appointment</button>
                 </div>
             </div>
         </li>
@@ -57,6 +57,23 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+.login-card {
+  font-family: 'Great Vibes', cursive;
+  background-color: #ffffff; /* Make card color different from background */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px; /* Wider card */
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 227px); /* Adjust as needed to ensure footer at bottom */
+}
+
 
 .redirect{
   font-family: 'Open Sans', sans-serif;
@@ -113,7 +130,7 @@
   margin-bottom: 20px;
   margin-top: 2%;
   font-family: 'Great Vibes', cursive;
-  font-size: 70px;
+  font-size: 50px;
 }
 
 .success-popup {
@@ -231,6 +248,8 @@ textarea:focus {
   font-size: 16px;
   height: 100px;
 }
+
+
 </style>
 <script>
 import  {isAuthenticated}  from '../router/helpers';
