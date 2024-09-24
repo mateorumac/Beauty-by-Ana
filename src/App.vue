@@ -25,7 +25,7 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: #f5f5f5; /* Soft, light gray background color */
-  color: #333; /* Darker text color for better contrast */
+  background-color: #f5f5f5;
+  color: #333;
 }
 </style>
