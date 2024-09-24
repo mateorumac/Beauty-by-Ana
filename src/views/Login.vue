@@ -1,6 +1,3 @@
-Here is the updated code with text translated to English, centrally aligned labels above the input fields, and an additional text below the button to navigate users to the registration page:
-
-```html
 <template>
   <div class="container52">
     <h2 class="title1">Login</h2>
