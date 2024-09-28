@@ -57,13 +57,12 @@ Here are the changes with the text translated to English, the button centrally a
   font-weight: bold;
   color: #000000;
   font-family: 'Open Sans', sans-serif;
-  /* Removed any animation-related properties */
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align labels */
+  align-items: center; 
   margin-bottom: 20px;
   width: 100%;
 }
@@ -73,7 +72,7 @@ Here are the changes with the text translated to English, the button centrally a
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
-  text-align: center; /* Center align text */
+  text-align: center; 
 }
 
 .reg2 {
@@ -82,13 +81,13 @@ Here are the changes with the text translated to English, the button centrally a
   font-size: 18px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  width: 100%; /* Full width input fields */
-  max-width: 400px; /* Maximum width for input fields */
+  width: 100%; 
+  max-width: 400px; 
 }
 
 .button-container {
   display: flex;
-  justify-content: center; /* Center align button */
+  justify-content: center; 
   width: 100%;
 }
 

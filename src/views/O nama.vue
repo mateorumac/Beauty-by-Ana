@@ -77,7 +77,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
 .container2 {
-  max-width: 1400px; /* Increased max-width for more content width */
+  max-width: 1400px; 
   margin: 0 auto;
   padding: 20px;
 }
@@ -87,7 +87,7 @@ export default {
   margin-bottom: 4%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 400px; /* Increased max-width for modern look */
+  max-width: 400px; 
   height: auto;
   background-color: #FFB6C1;
   border-radius: 10px;
@@ -96,7 +96,7 @@ export default {
   text-align: center;
   opacity: 0;
   transform: scale(0.5);
-  transition: transform 1s, opacity 1s; /* Animation for pop-in effect */
+  transition: transform 1s, opacity 1s; 
 }
 
 .row::after {
@@ -107,7 +107,7 @@ export default {
 
 .column {
   float: left;
-  width: 45%; /* Increased width for columns */
+  width: 45%; 
   padding: 2.5%;
   box-sizing: border-box;
 }
@@ -116,7 +116,7 @@ export default {
   text-align: center;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 1s, transform 1s; /* Animation for fade-in and slide-in effects */
+  transition: opacity 1s, transform 1s; 
 }
 
 .visible.animate-fade-in, .visible.animate-slide-in, .visible.animate-pop-in {
@@ -126,7 +126,7 @@ export default {
 
 .about {
   padding: 5%;
-  margin-top: 20px; /* Margin from the top to start further down */
+  margin-top: 20px; 
   font-family: 'Open Sans', sans-serif;
   font-size: 20px;
   text-align: center;
@@ -150,22 +150,21 @@ export default {
 
 .rounded-img {
   max-width: 100%;
-  height: 300px; /* Set a consistent height for all images */
-  border-radius: 15px; /* Rounded edges for images */
-  margin: 20px 0; /* Ensure spacing around images */
+  height: 300px; 
+  border-radius: 15px; 
+  margin: 20px 0; 
   transition: transform 1s;
 }
 
 .large-img {
-  height: 400px; /* Larger size for the last two images */
+  height: 400px; 
 }
 
 .working-hours-title {
   font-size: 24px;
-  margin-bottom: -30px; /* Reduced space between the title and text */
+  margin-bottom: -30px; 
 }
 
-/* Animation classes */
 .animate-fade-in.visible {
   opacity: 1;
   transform: translateY(0);
@@ -220,8 +219,8 @@ export default {
   }
 
   .rectangle {
-    margin-left: auto; /* Center align */
-    margin-right: auto; /* Center align */
+    margin-left: auto; 
+    margin-right: auto; 
     margin-bottom: 7%;
     width: 90%;
   }

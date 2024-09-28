@@ -66,7 +66,7 @@
   height: 650px;
   width: calc(100% - 40px);
   margin: 0 auto;
-  margin-left: 100px; /* Added margin space around the map */
+  margin-left: 100px; 
   overflow: hidden;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -106,7 +106,7 @@
 }
 
 .contact i:hover {
-  color: #FFB6C1; /* Pink color on hover */
+  color: #FFB6C1; 
 }
 
 .right {
@@ -133,19 +133,19 @@
   }
 
   .mapouter {
-    margin-left: 60px; /* Adjust margin for tablets */
-    height: 500px; /* Adjust height for medium screens */
+    margin-left: 60px; 
+    height: 500px; 
   }
 
   .logo1 {
-    height: 500px; /* Reduce logo size for medium screens */
+    height: 500px; 
     width: auto;
     margin-top: 0;
     margin-bottom: 0;
   }
 
   .contact {
-    font-size: 26px; /* Adjust font size for medium screens */
+    font-size: 26px; 
   }
 }
 
@@ -155,54 +155,52 @@
     padding-top: 2%;
     padding-bottom: 2%;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center align content */
+    flex-direction: column; 
+    align-items: center; 
   }
 
   .row {
     display: flex;
-    flex-direction: column; /* Stack columns vertically */
+    flex-direction: column; 
     width: 100%;
   }
 
   .column.left, .column.right {
     width: 100%;
-    padding: 0; /* Remove padding to make sure items are full-width */
+    padding: 0; 
   }
 
   .mapouter {
-    margin-left: 0; /* Remove left margin in mobile view */
-    margin-right: 0; /* Remove right margin for consistency */
-    margin-top: 0; /* Remove top margin to ensure it's on top */
+    margin-left: 0; 
+    margin-right: 0; 
+    margin-top: 0; 
     height: 400px;
     border-radius: 10px;
     box-shadow: none;
-    width: 100%; /* Ensure map takes full width */
+    width: 100%; 
   }
 
   .logo1 {
     max-width: 100%;
     height: auto;
-    margin: -100px 0; /* Reduce margin to lessen the space */
+    margin: -100px 0; 
   }
 
   .contact {
     font-size: 23px;
-    margin-bottom: 10px; /* Reduced margin to fit better */
-    text-align: left; /* Center align text */
+    margin-bottom: 10px; 
+    text-align: left; 
   }
 }
-
 
 /* Styles for mobile landscape (max-width: 768px) */
 @media (max-width: 768px) and (orientation: landscape) {
   .mapouter {
-    height: 400px; /* Adjust height for landscape mobile screens */
+    height: 400px; 
   }
 
   .contact {
-    font-size: 24px; /* Adjust font size for landscape mobile screens */
+    font-size: 24px; 
   }
 }
-
 </style>

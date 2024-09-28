@@ -65,7 +65,7 @@
   padding-top: 5%;
   max-width: 100%;
   margin: 0 auto;
-  padding-bottom: 3%; /* Add more space at the bottom */
+  padding-bottom: 3%; 
   display: flex;
   justify-content: center;
 }
@@ -89,39 +89,39 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centrally align content */
+  align-items: center; 
   justify-content: center;
-  padding-left: 40px; /* More space between image and text */
+  padding-left: 40px; 
 }
 
 h2 {
   font-family: 'Open Sans', sans-serif;
   margin-top: 7%;
-  margin-bottom: 20px; /* Reduced margin */
+  margin-bottom: 20px; 
   font-size: 38px;
-  text-align: center; /* Center align text */
+  text-align: center; 
   animation: fadeIn 2s ease-in-out;
 }
 
 .homepage {
   font-size: 25px;
   margin: 5%;
-  margin-bottom: 20px; /* Reduced margin */
+  margin-bottom: 20px; 
   font-family: 'Open Sans', sans-serif;
-  text-align: center; /* Center align text */
+  text-align: center;
   animation: fadeIn 2s ease-in-out;
 }
 
 .main-photo {
   max-width: 80%;
   height: auto;
-  border-radius: 15px; /* Rounded edges */
+  border-radius: 15px; 
   animation: zoomIn 2s ease-in-out;
 }
 
 .slider {
   padding-top: 5%;
-  padding-bottom: 7%; /* Add more space at the bottom */
+  padding-bottom: 7%; 
   height: 320px;
   margin: auto;
   position: relative;
@@ -129,13 +129,13 @@ h2 {
   display: grid;
   place-items: center;
   overflow: hidden;
-  border-radius: 15px; /* Ensure the entire slider has rounded edges */
+  border-radius: 15px;
   animation: slideIn 2s ease-in-out;
 }
 
 .slide-track {
   display: flex;
-  width: calc(300px * 10); /* Adjusted width */
+  width: calc(300px * 10); 
   animation: scroll 40s linear infinite;
 }
 
@@ -144,20 +144,20 @@ h2 {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-300px * 5)); /* Adjusted width */
+    transform: translateX(calc(-300px * 5)); 
   }
 }
 
 .slide {
-  height: 300px; /* Adjusted height */
-  width: 300px; /* Adjusted width */
+  height: 300px; 
+  width: 300px; 
   padding: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   perspective: 100px;
-  border-radius: 15px; /* Rounded edges */
-  overflow: hidden; /* Ensure content within the slide has rounded edges */
+  border-radius: 15px; 
+  overflow: hidden; 
 }
 
 .slide img {
@@ -165,7 +165,7 @@ h2 {
   height: 100%;
   object-fit: cover;
   transition: transform 1s;
-  border-radius: 15px; /* Ensures the image inside also has rounded edges */
+  border-radius: 15px; 
 }
 
 .slide img:hover {
@@ -193,23 +193,23 @@ h2 {
 }
 
 .join-button {
-  padding: 15px 30px; /* Improved button size */
-  background-color: #FFB6C1; /* Matching the pink color palette */
-  color: black; /* Black text */
-  border-radius: 20px; /* More rounded edges */
+  padding: 15px 30px; 
+  background-color: #FFB6C1; 
+  color: black; 
+  border-radius: 20px; 
   border: none;
-  font-size: 20px; /* Larger font size */
+  font-size: 20px; 
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   font-family: 'Open Sans', sans-serif;
-  margin-top: 20px; /* Space between text and button */
+  margin-top: 20px; 
 }
 
 .join-button:hover {
   transform: translateY(-3px);
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
-  background-color: #FF91A4; /* Slightly darker hover color */
+  background-color: #FF91A4; 
 }
 
 @keyframes fadeIn {
@@ -250,44 +250,44 @@ h2 {
   }
 
   .content {
-    flex-direction: column; /* Stack the columns vertically */
+    flex-direction: column; 
   }
 
   .main-photo {
-    max-width: 100%; /* Ensure the image takes full width */
+    max-width: 100%; 
     height: auto;
-    margin-bottom: 20px; /* Add some space below the image */
+    margin-bottom: 20px; 
   }
 
   .right {
-    padding-left: 0; /* Remove padding for mobile */
+    padding-left: 0; 
   }
 
   h2 {
-    font-size: 28px; /* Adjust font size for mobile */
-    margin-top: 10px; /* Adjust margin for mobile */
-    margin-bottom: 15px; /* Adjust margin for mobile */
+    font-size: 28px; 
+    margin-top: 10px; 
+    margin-bottom: 15px; 
   }
 
   .homepage {
-    font-size: 18px; /* Adjust font size for mobile */
-    margin: 0 10px 10px; /* Adjust margins for mobile */
+    font-size: 18px; 
+    margin: 0 10px 10px; 
   }
 
   .slider {
-    margin-top: -20px; /* Less margin from navbar to carousel */
-    margin-bottom: -50px; /* Less margin from carousel to other content */
+    margin-top: -20px; 
+    margin-bottom: -50px; 
   }
 
   .slide {
-    height: 200px; /* Adjusted height for mobile */
-    width: 200px; /* Adjusted width for mobile */
+    height: 200px; 
+    width: 200px; 
   }
 
   .join-button {
     margin-bottom: 10px;
-    padding: 15px 30px; /* Slightly larger button padding for mobile */
-    font-size: 20px; /* Slightly larger button font size for mobile */
+    padding: 15px 30px; 
+    font-size: 20px; 
   }
 }
 </style>
@@ -301,4 +301,3 @@ export default {
   }
 };
 </script>
-```

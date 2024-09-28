@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- Left Column for Introduction -->
     <div class="left-column">
       <h2 class="headline">We Value Your Opinion!</h2>
       <p class="homepage">
@@ -14,10 +13,7 @@
       </p>
       <img src="kor1.jpg" class="responsive-img" />
     </div>
-
-    <!-- Right Column for Reviews and Feedback Form -->
     <div class="right-column">
-      <!-- Review Section -->
       <div v-if="isAuthenticated()" class="reviews-section">
         <div v-if="reviews.length" class="review-list">
           <div v-for="rev in reviews" :key="rev._id" class="review-item">
@@ -31,7 +27,6 @@
             <button type="button" v-if="role === 'admin'" @click="deleteReview(rev._id)">Delete Review</button>
           </div>
         </div>
-        <!-- Feedback Form -->
         <div class="feedback-form">
           <h2>Leave Your Feedback!</h2>
           <form>
@@ -59,22 +54,17 @@
           </form>
         </div>
       </div>
-
-      <!-- Login Prompt -->
       <div v-else class="login-prompt">
         <h2 class="headline">Please log in to leave your feedback!</h2>
         <button class="redirect" @click="redirectToPage()">Log In</button>
       </div>
     </div>
-
-    <!-- Success Popup -->
     <div v-if="showSuccessPopup" class="success-popup">
       Your feedback has been recorded!
       <button @click="closePopup">Close</button>
     </div>
   </div>
 </template>
-
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
@@ -92,32 +82,32 @@ body {
   margin: 0 auto;
   padding: 20px;
   padding-bottom: 35px;
-  opacity: 0; /* Initially hidden for fade-in effect */
-  animation: fadeIn 1s forwards; /* Animation for fade-in effect */
+  opacity: 0;
+  animation: fadeIn 1s forwards;
 }
 
 .left-column {
   flex: 2;
-  margin-left: 0; /* Reset or reduce the margin-left to reduce empty space */
-  padding-right: 50px; /* Maintain space between columns */
+  margin-left: 0;
+  padding-right: 50px;
   text-align: center;
-  transform: translateX(-20px); /* Initial position for slide-in effect */
-  animation: slideInLeft 0.5s ease-out forwards; /* Slide-in animation */
+  transform: translateX(-20px);
+  animation: slideInLeft 0.5s ease-out forwards;
 }
 
 .right-column {
   flex: 1;
-  padding-left: 80px; /* Increase space to push content further right */
+  padding-left: 80px;
   text-align: center;
-  transform: translateX(20px); /* Initial position for slide-in effect */
-  animation: slideInRight 0.5s ease-out forwards; /* Slide-in animation */
+  transform: translateX(20px);
+  animation: slideInRight 0.5s ease-out forwards;
 }
 
 .headline {
   margin-bottom: 10px;
   margin-top: 20px;
-  opacity: 0; /* Initially hidden for fade-in effect */
-  animation: fadeInUp 1s ease-out forwards; /* Fade-in animation */
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
 }
 
 .homepage {
@@ -130,9 +120,9 @@ body {
   height: auto;
   display: block;
   margin: 20px auto;
-  border-radius: 10px; /* Rounded edges */
-  opacity: 0; /* Initially hidden for fade-in effect */
-  animation: fadeIn 1.5s forwards; /* Animation for fade-in effect */
+  border-radius: 10px;
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
 }
 
 .form-group {
@@ -144,8 +134,8 @@ label {
   font-weight: bold;
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 10px;
-  opacity: 0; /* Initially hidden for fade-in effect */
-  animation: fadeInUp 1s ease-out forwards; /* Fade-in animation */
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
 }
 
 input[type="text"],
@@ -154,12 +144,12 @@ textarea {
   padding: 10px;
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 10px;
-  transition: border-color 0.3s ease; /* Smooth transition */
+  transition: border-color 0.3s ease;
 }
 
 input[type="text"]:focus,
 textarea:focus {
-  border-color: #FFB6C1; /* Highlight border color on focus */
+  border-color: #FFB6C1;
 }
 
 .redirect,
@@ -174,13 +164,13 @@ button[type="button"] {
   cursor: pointer;
   display: inline-block;
   margin-top: 10px;
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .redirect:hover,
 button[type="button"]:hover {
   background-color: #ff99a8;
-  transform: scale(1.05); /* Slightly increase size on hover */
+  transform: scale(1.05);
 }
 
 .success-popup {
@@ -197,8 +187,8 @@ button[type="button"]:hover {
   font-size: 18px;
   color: white;
   z-index: 1000;
-  opacity: 0; /* Initially hidden for fade-in effect */
-  animation: fadeIn 0.5s ease-out forwards; /* Fade-in animation */
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 .success-popup button {
@@ -210,12 +200,12 @@ button[type="button"]:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .success-popup button:hover {
   background-color: #ff99a8;
-  transform: scale(1.05); /* Slightly increase size on hover */
+  transform: scale(1.05);
 }
 
 .review-list {
@@ -223,9 +213,9 @@ button[type="button"]:hover {
 }
 
 .review-item {
-  background-color: #f9f9f9; /* Light background for each review */
-  border: 1px solid #ddd; /* Border around review */
-  border-radius: 8px; /* Rounded corners */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   padding: 15px;
   margin-bottom: 10px;
   text-align: left;
@@ -275,7 +265,7 @@ button[type="button"]:hover {
 .star-rating label {
   color: rgb(128, 128, 128);
   cursor: pointer;
-  transition: color 0.3s ease; /* Smooth transition */
+  transition: color 0.3s ease;
 }
 
 .star-rating :checked ~ label {
@@ -289,8 +279,8 @@ button[type="button"]:hover {
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    opacity: 1; /* Ensure container is visible */
-    animation: none; /* Disable animations */
+    opacity: 1;
+    animation: none;
   }
 
   .headline,
@@ -299,8 +289,8 @@ button[type="button"]:hover {
   label,
   input[type="text"],
   textarea {
-    animation: none; /* Disable animations */
-    opacity: 1; /* Ensure elements are visible */
+    animation: none;
+    opacity: 1;
   }
 
   .left-column, .right-column {
@@ -313,17 +303,16 @@ button[type="button"]:hover {
   }
 
   .login-prompt {
-    text-align: center; /* Center text and button */
-    margin-top: 40px; /* Added more top margin */
+    text-align: center;
+    margin-top: 40px;
   }
 
   .redirect {
-    display: inline-block; /* Allow centering */
-    margin-top: 20px; /* Increased margin-top for spacing */
+    display: inline-block;
+    margin-top: 20px;
   }
 }
 
-/* Keyframe animations */
 @keyframes fadeIn {
   from {
     opacity: 0;

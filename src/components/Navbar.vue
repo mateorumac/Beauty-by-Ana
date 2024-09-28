@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { isAuthenticated } from '../router/helpers'; // Adjust the path to the correct location
+import { isAuthenticated } from '../router/helpers'; 
 
 export default {
   data() {
@@ -81,10 +81,6 @@ export default {
     const data = await response.json();
     console.log('Logout response:', data);
 
-    // Optionally redirect to login or home page
-    // this.$router.push('/login');
-
-    // Force page reload
     window.location.reload();
 
   } catch (error) {
@@ -163,8 +159,8 @@ nav ul {
   color: black;
   font-weight: bold;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-decoration: none; /* Ensure that the button text has no underline */
-  border: none; /* Remove any default button borders */
+  text-decoration: none; 
+  border: none; 
 }
 
 .register-button:hover {
@@ -186,7 +182,7 @@ nav ul {
 
 @media (max-width: 600px) {
   .logo {
-    margin-left: 10px; /* Adjust margin to move the logo slightly to the left */
+    margin-left: 10px; 
   }
 
   .nav-links {
@@ -202,16 +198,16 @@ nav ul {
     flex-direction: column;
     position: absolute;
     top: 70px;
-    left: 76%; /* Move the dropdown more to the right */
+    left: 76%; 
     background-color: #FFB6C1;
-    width: 38%; /* Reduced width */
+    width: 38%; 
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     transform: translateX(-50%);
     transition: all 0.3s ease-in-out;
-    z-index: 10; /* Ensure the dropdown menu appears above other content */
-    align-items: center; /* Align text to the right side */
+    z-index: 10; 
+    align-items: center; 
   }
 
   .dropdown li {
@@ -227,7 +223,7 @@ nav ul {
   }
 
   .dropdown a:hover {
-    color: #FFD5E5; /* Change text color on hover instead of background */
+    color: #FFD5E5; 
   }
 }
 
@@ -259,5 +255,4 @@ nav ul {
     color: white;
   }
 }
-
 </style>

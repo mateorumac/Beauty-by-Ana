@@ -54,7 +54,7 @@ Here is the updated code with text translated to English, centrally aligned labe
 .form-group1 {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align labels */
+  align-items: center; 
   margin-bottom: 20px;
   width: 100%;
 }
@@ -64,7 +64,7 @@ Here is the updated code with text translated to English, centrally aligned labe
   font-size: 23px;
   font-weight: bold;
   margin-bottom: 15px;
-  text-align: center; /* Center align text */
+  text-align: center; 
 }
 
 input {
@@ -73,13 +73,13 @@ input {
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  width: 100%; /* Full width input fields */
-  max-width: 400px; /* Maximum width for input fields */
+  width: 100%; 
+  max-width: 400px; 
 }
 
 .button-container {
   display: flex;
-  justify-content: center; /* Center align button */
+  justify-content: center; 
   width: 100%;
 }
 

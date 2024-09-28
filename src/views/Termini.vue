@@ -54,30 +54,29 @@
   </div>
 </template>
 
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
 .page-container {
   display: flex;
   flex-direction: column;
-  min-height: 80.5vh; /* Ensure the container covers the full height of the viewport */
+  min-height: 80.5vh;
 }
 
 .content-wrap {
   margin-top: 50px;
-  flex: 1; /* Allow the content to expand and push footer to the bottom */
+  flex: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align all content horizontally */
+  align-items: center;
 }
 
 .booking {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 700px; /* Restrict maximum width of form container */
+  max-width: 700px;
   margin-bottom: 20px;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
@@ -102,8 +101,8 @@ input[type="tel"] {
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: 'Open Sans', sans-serif;
-  width: 100%; /* Ensure fields take up full width of their container */
-  max-width: 100%; /* Ensure fields don’t exceed the container width */
+  width: 100%;
+  max-width: 100%;
 }
 
 select {
@@ -162,7 +161,7 @@ textarea:focus {
   border-radius: 10px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  max-width: 500px; /* Adjusted max-width for better appearance */
+  max-width: 500px;
   margin: 20px auto;
   margin-top: 120px;
 }
@@ -177,20 +176,19 @@ textarea:focus {
   font-family: 'Open Sans', sans-serif;
   background-color: #FFB6C1;
   color: black;
-  padding: 15px 30px; /* Adjusted padding for a better button size */
+  padding: 15px 30px;
   font-size: 18px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  text-decoration: none; /* Remove underline from link button */
+  text-decoration: none;
 }
 
 .redirect:hover {
   background-color: #ff99a8;
 }
 </style>
-
 
 <script>
 import  {isAuthenticated}  from '../router/helpers';
