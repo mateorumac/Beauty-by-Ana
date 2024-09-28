@@ -1,6 +1,3 @@
-Here are the changes with the text translated to English, the button centrally aligned below the form, and the input labels centrally aligned above the input fields:
-
-```html
 <template>
   <div class="container5">
     <h2 class="title2">Registration</h2>

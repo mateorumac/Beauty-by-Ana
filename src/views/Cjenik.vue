@@ -1,8 +1,3 @@
-To ensure the footer is placed at the bottom of the page while the price list is loading from the backend, you can use the `min-height` property on the container. This will ensure that the container takes up at least the full height of the viewport, pushing the footer to the bottom even if there is little content.
-
-Here's the updated code:
-
-```html
 <template>
   <div class="container3">
     <div class="buttons-container" v-if="role === 'admin'">
