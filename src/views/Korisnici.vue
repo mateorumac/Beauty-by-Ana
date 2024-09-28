@@ -13,8 +13,9 @@
       </p>
       <img src="kor1.jpg" class="responsive-img" />
     </div>
+    
     <div class="right-column">
-      <div v-if="isAuthenticated()" class="reviews-section">
+      <div class="reviews-section">
         <div v-if="reviews.length" class="review-list">
           <div v-for="rev in reviews" :key="rev._id" class="review-item">
             <div class="review-header">
@@ -24,10 +25,10 @@
               </div>
             </div>
             <p class="review-text">{{ rev.review }}</p>
-            <button type="button" v-if="role === 'admin'" @click="deleteReview(rev._id)">Delete Review</button>
           </div>
         </div>
-        <div class="feedback-form">
+
+        <div v-if="isAuthenticated()" class="feedback-form">
           <h2>Leave Your Feedback!</h2>
           <form>
             <div class="form-group">
@@ -53,12 +54,14 @@
             <button type="button" @click="submitReview()">Submit</button>
           </form>
         </div>
-      </div>
-      <div v-else class="login-prompt">
-        <h2 class="headline">Please log in to leave your feedback!</h2>
-        <button class="redirect" @click="redirectToPage()">Log In</button>
+        
+        <div v-else class="login-prompt">
+          <h2>Please log in to leave your feedback!</h2>
+          <button class="redirect" @click="redirectToPage()">Log In</button>
+        </div>
       </div>
     </div>
+    
     <div v-if="showSuccessPopup" class="success-popup">
       Your feedback has been recorded!
       <button @click="closePopup">Close</button>
@@ -276,6 +279,52 @@ button[type="button"]:hover {
   color: rgb(250, 176, 5);
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .left-column, .right-column {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .right-column {
+    padding-left: 0;
+  }
+
+  .responsive-img {
+    max-width: 100%;
+    margin: 20px auto;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  .left-column {
+    flex: 1;
+    padding-right: 40px;
+  }
+
+  .right-column {
+    flex: 1;
+    padding-left: 40px;
+  }
+
+  .responsive-img {
+    max-width: 90%;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -356,10 +405,8 @@ button[type="button"]:hover {
 }
 </style>
 
-
 <script>
-import { getUserRole } from '../router/helpers';
-import { isAuthenticated } from '../router/helpers';
+import { getUserRole, isAuthenticated } from '../router/helpers';
 
 export default {
   name: 'ReviewForm',
@@ -374,7 +421,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchReviews();
+    this.fetchReviews(); 
   },
   methods: {
     isAuthenticated,
@@ -382,7 +429,7 @@ export default {
       this.showSuccessPopup = false;
     },
     redirectToPage() {
-      window.location.href = '/login';
+      window.location.href = '/login'; 
     },
     async submitReview() {
       const reviewData = {
@@ -400,19 +447,18 @@ export default {
           body: JSON.stringify(reviewData)
         });
 
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.indexOf("application/json") !== -1) {
+        if (response.ok) {
           const responseData = await response.json();
-          console.log('Review submitted successfully', responseData);
           this.showSuccessPopup = true;
           this.username = '';
           this.review = '';
           this.rating = 0;
+
           if (responseData.review) {
-            this.reviews.push(responseData.review);
+            this.reviews.push(responseData.review); 
           }
         } else {
-          console.error('Received non-JSON response', await response.text());
+          console.error('Error submitting review', await response.text());
         }
       } catch (error) {
         console.error('Error submitting review', error);
@@ -430,24 +476,8 @@ export default {
       } catch (error) {
         console.error('Error fetching the reviews:', error);
       }
-    },
-
-    async deleteReview(id) {
-      try {
-        const response = await fetch(`https://wa-backend4.onrender.com/api/review/${id}`, {
-          method: 'DELETE'
-        });
-
-        if (response.ok) {
-          this.reviews = this.reviews.filter(review => review._id !== id);
-          console.log('Review deleted successfully');
-        } else {
-          console.error('Failed to delete review');
-        }
-      } catch (error) {
-        console.error('Error deleting the review:', error);
-      }
     }
   }
 };
 </script>
+

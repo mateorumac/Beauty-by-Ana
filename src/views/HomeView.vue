@@ -95,7 +95,7 @@
 }
 
 h2 {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Dancing Script', cursive;
   margin-top: 7%;
   margin-bottom: 20px; 
   font-size: 38px;
@@ -104,7 +104,7 @@ h2 {
 }
 
 .homepage {
-  font-size: 25px;
+  font-size: 1.6rem;
   margin: 5%;
   margin-bottom: 20px; 
   font-family: 'Open Sans', sans-serif;
@@ -243,7 +243,135 @@ h2 {
   }
 }
 
-@media (max-width: 600px) {
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .container1 {
+    padding-top: 5%;
+    padding-bottom: 3%;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+  }
+
+  .left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-right: 20px;
+  }
+
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 20px;
+  }
+
+  h2 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .homepage {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .main-photo {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+  }
+
+  .join-button {
+    padding: 12px 24px;
+    font-size: 18px;
+    margin-top: 20px;
+    background-color: #FFB6C1;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    width: auto;
+  }
+
+  .join-button:hover {
+    background-color: #FF91A4;
+    transform: translateY(-3px);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .container1 {
+    padding-top: 5%;
+    padding-bottom: 3%;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: -10px;
+  }
+
+  .homepage {
+    font-size: 18px;
+    text-align: center;
+    margin: 10px 20px;
+  }
+
+  .main-photo {
+    max-width: 80%;
+    height: auto;
+    border-radius: 15px;
+  }
+
+  .join-button {
+    padding: 12px 24px;
+    font-size: 18px;
+    margin-top: 20px;
+    background-color: #FFB6C1;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+  }
+
+  .join-button:hover {
+    background-color: #FF91A4;
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 768px) {
   .left, .right {
     width: 100%;
     text-align: center;

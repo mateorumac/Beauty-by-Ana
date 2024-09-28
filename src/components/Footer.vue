@@ -89,7 +89,7 @@ footer {
   font-size: 16px; 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .footer-content {
     flex-direction: column;
     align-items: center;
