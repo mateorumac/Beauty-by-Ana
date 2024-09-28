@@ -1,2 +1,2 @@
 # frontendWA
-repozitorij za frontend projekta WA
+repozitorij za Beauty by Ana web mjesto
